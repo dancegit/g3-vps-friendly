@@ -2,7 +2,7 @@
 
 use std::sync::Arc;
 use anyhow::Result;
-use g3_computer_control::WebDriverController;
+use crate::computer_control::WebDriverController;
 use tracing::{debug, warn};
 
 use crate::ui_writer::UiWriter;
@@ -86,7 +86,7 @@ async fn start_safari_driver<W: UiWriter>(ctx: &ToolContext<'_, W>) -> Result<St
     tokio::time::sleep(tokio::time::Duration::from_millis(1000)).await;
 
     // Connect to SafariDriver
-    match g3_computer_control::SafariDriver::with_port(port).await {
+    match crate::computer_control::SafariDriver::with_port(port).await {
         Ok(driver) => {
             let session =
                 std::sync::Arc::new(tokio::sync::Mutex::new(WebDriverSession::Safari(driver)));
@@ -152,10 +152,10 @@ async fn start_chrome_driver<W: UiWriter>(ctx: &ToolContext<'_, W>) -> Result<St
         // Try to connect to ChromeDriver in headless mode (with optional custom binary)
         let driver_result = match &ctx.config.webdriver.chrome_binary {
             Some(binary) => {
-                g3_computer_control::ChromeDriver::with_port_headless_and_binary(port, Some(binary))
+                crate::computer_control::ChromeDriver::with_port_headless_and_binary(port, Some(binary))
                     .await
             }
-            None => g3_computer_control::ChromeDriver::with_port_headless(port).await,
+            None => crate::computer_control::ChromeDriver::with_port_headless(port).await,
         };
 
         match driver_result {

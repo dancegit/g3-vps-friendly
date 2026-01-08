@@ -20,6 +20,10 @@ pub mod streaming;
 pub mod utils;
 pub mod webdriver_session;
 
+// Computer control stub for headless environments
+pub mod computer_control_stub;
+pub use computer_control_stub as computer_control;
+
 pub use task_result::TaskResult;
 pub use retry::{RetryConfig, RetryResult, execute_with_retry, retry_operation};
 pub use feedback_extraction::{ExtractedFeedback, FeedbackSource, FeedbackExtractionConfig, extract_coach_feedback};
@@ -103,7 +107,7 @@ pub struct Agent<W: UiWriter> {
     ui_writer: W,
     is_autonomous: bool,
     quiet: bool,
-    computer_controller: Option<Box<dyn g3_computer_control::ComputerController>>,
+    computer_controller: Option<Box<dyn crate::computer_control::ComputerController>>,
     todo_content: std::sync::Arc<tokio::sync::RwLock<String>>,
     webdriver_session: std::sync::Arc<
         tokio::sync::RwLock<
@@ -253,7 +257,7 @@ impl<W: UiWriter> Agent<W> {
 
         // Initialize computer controller if enabled
         let computer_controller = if config.computer_control.enabled {
-            match g3_computer_control::create_controller() {
+            match crate::computer_control::create_controller() {
                 Ok(controller) => Some(controller),
                 Err(e) => {
                     warn!("Failed to initialize computer control: {}", e);

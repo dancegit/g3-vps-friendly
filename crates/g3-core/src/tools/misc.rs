@@ -84,7 +84,7 @@ pub async fn execute_take_screenshot<W: UiWriter>(
         .args
         .get("region")
         .and_then(|v| v.as_object())
-        .map(|region_obj| g3_computer_control::types::Rect {
+        .map(|region_obj| crate::computer_control::types::Rect {
             x: region_obj.get("x").and_then(|v| v.as_i64()).unwrap_or(0) as i32,
             y: region_obj.get("y").and_then(|v| v.as_i64()).unwrap_or(0) as i32,
             width: region_obj

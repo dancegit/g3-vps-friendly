@@ -1,0 +1,12 @@
+[providers]
+default_provider = "embedded.default"
+
+[providers.embedded.default]
+model_type = "llama"
+model = "llama-2-7b-chat"
+context_length = 4096
+
+[computer_control]
+enabled = false
+require_confirmation = true
+max_actions_per_second = 5

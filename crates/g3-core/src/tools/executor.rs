@@ -17,7 +17,7 @@ pub struct ToolContext<'a, W: UiWriter> {
     pub ui_writer: &'a W,
     pub session_id: Option<&'a str>,
     pub working_dir: Option<&'a str>,
-    pub computer_controller: Option<&'a Box<dyn g3_computer_control::ComputerController>>,
+    pub computer_controller: Option<&'a Box<dyn crate::computer_control::ComputerController>>,
     pub webdriver_session: &'a Arc<RwLock<Option<Arc<tokio::sync::Mutex<WebDriverSession>>>>>,
     pub webdriver_process: &'a Arc<RwLock<Option<tokio::process::Child>>>,
     pub background_process_manager: &'a Arc<BackgroundProcessManager>,

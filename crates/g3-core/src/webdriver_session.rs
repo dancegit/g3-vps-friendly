@@ -3,7 +3,7 @@
 //! This module provides a unified interface for browser automation
 //! that can work with either Safari or Chrome WebDriver.
 
-use g3_computer_control::{ChromeDriver, SafariDriver, WebDriverController, WebElement};
+use crate::computer_control::{ChromeDriver, SafariDriver, WebDriverController, WebElement};
 
 /// Unified WebDriver session that can hold either Safari or Chrome driver.
 pub enum WebDriverSession {

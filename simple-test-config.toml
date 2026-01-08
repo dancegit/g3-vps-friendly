@@ -1,0 +1,10 @@
+[computer_control]
+enabled = true
+require_confirmation = true
+max_actions_per_second = 5
+
+[webdriver]
+enabled = false
+safari_port = 4444
+chrome_port = 9515
+browser = "safari"
