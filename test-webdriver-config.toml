@@ -1,0 +1,32 @@
+# Test configuration for WebDriver functionality
+
+[providers]
+default_provider = "anthropic.default"
+
+[providers.anthropic.default]
+api_key = "test-key"
+model = "claude-3-sonnet"
+max_tokens = 4096
+temperature = 0.3
+
+[agent]
+fallback_default_max_tokens = 8192
+enable_streaming = true
+timeout_seconds = 60
+max_retry_attempts = 3
+autonomous_max_retry_attempts = 6
+allow_multiple_tool_calls = true
+auto_compact = true
+
+[computer_control]
+enabled = false  # Disable native computer control (GUI/OCR)
+require_confirmation = true
+max_actions_per_second = 5
+
+[webdriver]
+enabled = true
+safari_port = 4444
+chrome_port = 9515
+browser = "chrome-headless"
+# Use the installed Chrome for Testing if available, otherwise system Chrome
+chrome_binary = "/usr/bin/chromium"

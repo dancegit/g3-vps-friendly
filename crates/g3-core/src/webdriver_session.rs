@@ -92,25 +92,22 @@ impl WebDriverController for WebDriverSession {
             WebDriverSession::Chrome(driver) => driver.quit().await,
         }
     }
-}
-
-// Additional methods for WebDriverSession that aren't part of the WebDriverController trait
-impl WebDriverSession {
-    pub async fn back(&mut self) -> anyhow::Result<()> {
+    
+    async fn back(&mut self) -> anyhow::Result<()> {
         match self {
             WebDriverSession::Safari(driver) => driver.back().await,
             WebDriverSession::Chrome(driver) => driver.back().await,
         }
     }
 
-    pub async fn forward(&mut self) -> anyhow::Result<()> {
+    async fn forward(&mut self) -> anyhow::Result<()> {
         match self {
             WebDriverSession::Safari(driver) => driver.forward().await,
             WebDriverSession::Chrome(driver) => driver.forward().await,
         }
     }
 
-    pub async fn refresh(&mut self) -> anyhow::Result<()> {
+    async fn refresh(&mut self) -> anyhow::Result<()> {
         match self {
             WebDriverSession::Safari(driver) => driver.refresh().await,
             WebDriverSession::Chrome(driver) => driver.refresh().await,

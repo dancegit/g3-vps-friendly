@@ -20,9 +20,12 @@ pub mod streaming;
 pub mod utils;
 pub mod webdriver_session;
 
-// Computer control stub for headless environments
-pub mod computer_control_stub;
-pub use computer_control_stub as computer_control;
+// Computer control with WebDriver support for headless environments
+pub mod computer_control_webdriver;
+pub use computer_control_webdriver as computer_control;
+
+#[cfg(test)]
+mod webdriver_test;
 
 pub use task_result::TaskResult;
 pub use retry::{RetryConfig, RetryResult, execute_with_retry, retry_operation};
