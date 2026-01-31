@@ -1,0 +1,89 @@
+--- a/crates/g3-core/src/tool_dispatch.rs
++++ b/crates/g3-core/src/tool_dispatch.rs
+@@ -20,6 +20,7 @@ pub async fn dispatch_tool<W: UiWriter>(
+     ctx: &mut ToolContext<'_, W>,
+ ) -> Result<String> {
+     debug!("Dispatching tool: {}", tool_call.tool);
++    eprintln!("🔍 TOOL_DISPATCH: Entering dispatch_tool with tool={}", tool_call.tool);
+ 
+     match tool_call.tool.as_str() {
+         // Shell tools
+@@ -27,6 +28,7 @@ pub async fn dispatch_tool<W: UiWriter>(
+         "background_process" => shell::execute_background_process(tool_call, ctx).await,
+ 
+         // File operations
+         "read_file" => {
++            eprintln!("🔍 TOOL_DISPATCH: Dispatching read_file tool");
+             file_ops::execute_read_file(tool_call, ctx).await
+         }
+         "read_image" => file_ops::execute_read_image(tool_call, ctx).await,
+@@ -67,6 +69,7 @@ pub async fn dispatch_tool<W: UiWriter>(
+ 
+         // Unknown tool
+         _ => {
++            eprintln!("🔍 TOOL_DISPATCH: Unknown tool '{}' - returning error", tool_call.tool);
+             warn!("Unknown tool: {}", tool_call.tool);
+             Ok(format!("❓ Unknown tool: {}", tool_call.tool))
+         }
+
+--- a/crates/g3-core/src/tools/shell.rs
++++ b/crates/g3-core/src/tools/shell.rs
+@@ -14,6 +14,7 @@ use super::executor::ToolContext;
+ /// Execute the `shell` tool.
+ pub async fn execute_shell<W: UiWriter>(tool_call: &ToolCall, ctx: &ToolContext<'_, W>) -> Result<String> {
+     debug!("Processing shell tool call");
++    eprintln!("🔍 SHELL_TOOL: Entering execute_shell");
+     
+     let command = match tool_call.args.get("command").and_then(|v| v.as_str()) {
+         Some(cmd) => cmd,
+@@ -47,6 +48,7 @@ pub async fn execute_shell<W: UiWriter>(tool_call: &ToolCall, ctx: &ToolContext<
+         ui_writer: ctx.ui_writer,
+     };
+ 
++    eprintln!("🔍 SHELL_TOOL: About to call execute_bash_streaming_in_dir with command='{}'", escaped_command);
+     debug!(
+         "ABOUT TO CALL execute_bash_streaming_in_dir: escaped_command='{}', working_dir={:?}",
+         escaped_command, ctx.working_dir
+@@ -54,10 +56,12 @@ pub async fn execute_shell<W: UiWriter>(tool_call: &ToolCall, ctx: &ToolContext<
+ 
+     match executor
+         .execute_bash_streaming_in_dir(&escaped_command, &receiver, ctx.working_dir)
+         .await
+     {
+         Ok(result) => {
++            eprintln!("🔍 SHELL_TOOL: execute_bash_streaming_in_dir completed with success={}", result.success);
+             if result.success {
+                 Ok(if result.stdout.is_empty() {
+                     "✅ Command executed successfully".to_string()
+                 } else {
+                     result.stdout.trim().to_string()
+                 })
+             } else {
+                 Ok(format!("❌ Command failed: {}", result.stderr.trim()))
+         }
+         Err(e) => Ok(format!("❌ Execution error: {}", e)),
+     }
+
+--- a/crates/g3-core/src/lib.rs
++++ b/crates/g3-core/src/lib.rs
+@@ -3310,6 +3310,7 @@ impl Agent<W> {
+         };
+ 
+         // Dispatch to the appropriate tool handler
++        eprintln!("🔍 AGENT: About to call tool_dispatch::dispatch_tool with tool={}", tool_call.tool);
+         let result = tool_dispatch::dispatch_tool(tool_call, &mut ctx).await?;
++        eprintln!("🔍 AGENT: tool_dispatch::dispatch_tool completed with result length={}", result.len());
+ 
+         // Handle special case: final_output needs to save session continuation
+         if tool_call.tool == "final_output" {
+
+--- a/crates/g3-core/src/streaming_parser.rs
++++ b/crates/g3-core/src/streaming_parser.rs
+@@ -126,6 +126,7 @@ impl StreamingToolParser {
+             // For load balancers that don't properly support native tool calls,
+             // we need to check for JSON tool calls in the content even during streaming
+             if !chunk.content.is_empty() {
++                eprintln!("🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: '{}'", chunk.content.chars().take(100).collect::<String>());
+                 let json_tools = self.try_parse_json_tool_calls_from_text(&chunk.content);
+                 if !json_tools.is_empty() {
+                     debug!("Found {} JSON tool calls in chunk content", json_tools.len());

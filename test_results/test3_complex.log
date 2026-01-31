@@ -1,0 +1,21 @@
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T11:53:03.015755Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+<think>
+The user wants me to debug WebSocket connection issues in a deployment. They want me to:
+1. Explore the current directory structure
+2. Look for configuration files related to WebSockets
+3. Look for Docker deployments
+4. Look for environment variables
+5. Check for .env files, docker-compose files
+6. Check for web-related configuration
+
+This is a multi-step task that involves exploration and analysis, so I should use the TODO tools to track my progress. Let me start by creating a plan and then exploring the directory structure.
+</think>
+
+I'll help you debug the WebSocket connection issues by exploring the directory structure and looking for relevant configuration files. Let me start by creating a plan and then examining the current setup.
+<invoke_tool_calls>
+<invoke name="todo_write">
+<parameter name="args": {"content": "- [ ] Explore current directory structure\n- [ ] Search for WebSocket-related configuration files\n- [ ] Look for Docker deployment files (docker-compose, Dockerfile)\n- [ ] Check for environment configuration (.env files, config files)\n- [ ] Examine web server configuration\n- [ ] Analyze WebSocket-specific settings\n- [ ] Generate debugging report with findings"}}
+</invoke_tool_calls>
+
+⏱️ 4.3s | 💭 1.9s  [2m19%[0m

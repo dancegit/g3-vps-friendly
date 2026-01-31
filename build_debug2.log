@@ -1,0 +1,85 @@
+   Compiling g3-providers v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-providers)
+   Compiling g3-core v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-core)
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+    --> crates/g3-core/src/lib.rs:1931:25
+     |
+1931 |                         log::debug!("G3_CORE: Tools to process: count={}", tools_to_process.len());
+     |                         ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+    --> crates/g3-core/src/lib.rs:1923:25
+     |
+1923 | ...   log::debug!("G3_CORE: Handling completed tools - count={}, allow_multiple={}", completed_tools.len(), self.config.agent.allow_multi...
+     |       ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+    --> crates/g3-core/src/lib.rs:1920:25
+     |
+1920 |                         log::debug!("G3_CORE: Completed tools from parser: count={}", completed_tools.len());
+     |                         ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+    --> crates/g3-core/src/lib.rs:1918:25
+     |
+1918 | ...   log::debug!("G3_CORE: Processing chunk - content_len={}, finished={}, tool_calls={:?}", chunk.content.len(), chunk.finished, chunk....
+     |       ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+  --> crates/g3-core/src/tool_dispatch.rs:31:5
+   |
+31 |     log::debug!("TOOL_DISPATCH: Tool validation passed for: {}", tool_call.tool);
+   |     ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+  --> crates/g3-core/src/tool_dispatch.rs:22:5
+   |
+22 |     log::debug!("TOOL_DISPATCH: Starting dispatch for tool: {}", tool_call.tool);
+   |     ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+   --> crates/g3-core/src/streaming_parser.rs:141:13
+    |
+141 |             log::debug!("STREAMING_PARSER: No native tool calls in chunk");
+    |             ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+   --> crates/g3-core/src/streaming_parser.rs:139:13
+    |
+139 |             log::debug!("STREAMING_PARSER: Completed processing {} native tool calls", completed_tools.len());
+    |             ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+   --> crates/g3-core/src/streaming_parser.rs:136:17
+    |
+136 |                 log::debug!("STREAMING_PARSER: Converted tool call {} - tool: {}, args: {:?}", i, converted_tool.tool, converted_tool.args);
+    |                 ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+   --> crates/g3-core/src/streaming_parser.rs:125:17
+    |
+125 |                 log::debug!("STREAMING_PARSER: Processing tool call {} - tool: {}, args: {:?}", i, tool_call.tool, tool_call.args);
+    |                 ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+   --> crates/g3-core/src/streaming_parser.rs:121:13
+    |
+121 |             log::debug!("STREAMING_PARSER: Received native tool calls: count={}, calls={:?}", tool_calls.len(), tool_calls);
+    |             ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+   --> crates/g3-core/src/streaming_parser.rs:119:9
+    |
+119 |         log::debug!("STREAMING_PARSER: process_chunk called - chunk.tool_calls: {:?}", chunk.tool_calls.is_some());
+    |         ^^^ use of unresolved module or unlinked crate `log`
+
+warning: unused variable: `allow_multiple_tool_calls`
+  --> crates/g3-core/src/prompts.rs:63:52
+   |
+63 | pub fn get_agent_system_prompt(agent_prompt: &str, allow_multiple_tool_calls: bool) -> String {
+   |                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_allow_multiple_tool_calls`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+For more information about this error, try `rustc --explain E0433`.
+warning: `g3-core` (lib) generated 1 warning
+error: could not compile `g3-core` (lib) due to 12 previous errors; 1 warning emitted

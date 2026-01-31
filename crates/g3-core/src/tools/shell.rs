@@ -13,11 +13,14 @@ use super::executor::ToolContext;
 /// Execute the `shell` tool.
 pub async fn execute_shell<W: UiWriter>(tool_call: &ToolCall, ctx: &ToolContext<'_, W>) -> Result<String> {
     debug!("Processing shell tool call");
+    eprintln!("🔍 SHELL_TOOL: Entering execute_shell");
+    eprintln!("🔍 SHELL_TOOL: Full tool_call.args: {:?}", tool_call.args);
     
     let command = match tool_call.args.get("command").and_then(|v| v.as_str()) {
         Some(cmd) => cmd,
         None => {
             debug!("No command parameter found in args: {:?}", tool_call.args);
+            eprintln!("🔍 SHELL_TOOL: ERROR - Missing command argument. Args: {:?}", tool_call.args);
             return Ok("❌ Missing command argument".to_string());
         }
     };
@@ -44,6 +47,7 @@ pub async fn execute_shell<W: UiWriter>(tool_call: &ToolCall, ctx: &ToolContext<
         ui_writer: ctx.ui_writer,
     };
 
+    eprintln!("🔍 SHELL_TOOL: About to call execute_bash_streaming_in_dir with command='{}'", escaped_command);
     debug!(
         "ABOUT TO CALL execute_bash_streaming_in_dir: escaped_command='{}', working_dir={:?}",
         escaped_command, ctx.working_dir
@@ -54,6 +58,7 @@ pub async fn execute_shell<W: UiWriter>(tool_call: &ToolCall, ctx: &ToolContext<
         .await
     {
         Ok(result) => {
+            eprintln!("🔍 SHELL_TOOL: execute_bash_streaming_in_dir completed with success={}", result.success);
             if result.success {
                 Ok(if result.stdout.is_empty() {
                     "✅ Command executed successfully".to_string()

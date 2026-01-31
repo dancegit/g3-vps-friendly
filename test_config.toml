@@ -1,0 +1,13 @@
+
+[agent]
+allow_multiple_tool_calls = true
+auto_compact = true
+fallback_default_max_tokens = 8192
+
+[providers.anthropic.minimax_local]
+model = "minimax"
+base_url = "http://localhost:9000/v1/messages"
+use_bearer_auth = true
+
+[ui]
+machine_mode = true

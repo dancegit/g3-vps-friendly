@@ -1,0 +1,126 @@
+/home/clauderun/g3-vps-friendly/test_tool_parsing_comprehensive.py:149: SyntaxWarning: invalid escape sequence '\$'
+  ("Print path", "shell", "echo \"PATH: \$PATH\""),
+🚀 Starting Comprehensive Tool Parsing Tests
+
+🧪 Testing: List files
+⏱️  Duration: 28.63s
+✅ Success: False, Tool calls: 0, Errors: 8
+
+🧪 Testing: Show current directory
+⏱️  Duration: 0.04s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: Check file contents
+⏱️  Duration: 5.07s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: List all files with details
+
+🧪 Testing: Find Python files
+⏱️  Duration: 10.75s
+✅ Success: False, Tool calls: 0, Errors: 6
+
+🧪 Testing: Check disk usage
+⏱️  Duration: 13.59s
+✅ Success: False, Tool calls: 0, Errors: 8
+
+🧪 Testing: List backend directory
+⏱️  Duration: 5.43s
+✅ Success: False, Tool calls: 0, Errors: 2
+
+🧪 Testing: Check deployment folder
+⏱️  Duration: 20.48s
+✅ Success: False, Tool calls: 0, Errors: 14
+
+🧪 Testing: Show src contents
+⏱️  Duration: 14.59s
+✅ Success: False, Tool calls: 0, Errors: 12
+
+🧪 Testing: Echo hello world
+⏱️  Duration: 2.59s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: Print path
+⏱️  Duration: 26.33s
+✅ Success: False, Tool calls: 0, Errors: 14
+
+🧪 Testing: Read README file
+
+🧪 Testing: Check Cargo.toml
+
+🧪 Testing: Look at package.json
+
+🧪 Testing: Read TODO list
+⏱️  Duration: 9.29s
+✅ Success: False, Tool calls: 0, Errors: 4
+
+🧪 Testing: Show current tasks
+⏱️  Duration: 7.50s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: Run multiple commands: ls and pwd
+
+🧪 Testing: Check both frontend and backend
+⏱️  Duration: 21.59s
+✅ Success: False, Tool calls: 0, Errors: 11
+
+🧪 Testing: List then read
+⏱️  Duration: 5.13s
+✅ Success: False, Tool calls: 0, Errors: 2
+
+🧪 Testing: Backend
+⏱️  Duration: 5.62s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: Frontend check
+⏱️  Duration: 7.14s
+✅ Success: False, Tool calls: 0, Errors: 2
+
+🧪 Testing: Test
+⏱️  Duration: 3.21s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: What files are here?
+⏱️  Duration: 17.48s
+✅ Success: False, Tool calls: 0, Errors: 4
+
+🧪 Testing: Show me the directory
+⏱️  Duration: 9.88s
+✅ Success: False, Tool calls: 0, Errors: 2
+
+🧪 Testing: Check what's in backend
+⏱️  Duration: 10.12s
+✅ Success: False, Tool calls: 0, Errors: 2
+
+🧪 Testing: Look at deployment files
+⏱️  Duration: 5.04s
+✅ Success: False, Tool calls: 0, Errors: 2
+
+🧪 Testing: Run shell command ls
+
+🧪 Testing: Execute shell with ls
+⏱️  Duration: 6.42s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: Use shell tool to list
+⏱️  Duration: 0.03s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: Shell command: ls -la
+
+🧪 Testing: List files and then check backend
+⏱️  Duration: 9.20s
+✅ Success: True, Tool calls: 0, Errors: 0
+
+🧪 Testing: Show current dir and list backend
+
+🧪 Testing: Find all txt files and show first one
+
+📊 Test Summary:
+Total tests: 33
+Passed: 9
+Failed: 24
+Pass rate: 27.3%
+
+📄 Report saved to: /home/clauderun/g3-vps-friendly/tool_parsing_test_report.md
+📊 Detailed results saved to: /home/clauderun/g3-vps-friendly/tool_parsing_test_results.json

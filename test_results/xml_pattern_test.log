@@ -1,0 +1,118 @@
+🔧 XML Pattern Testing Tool
+==================================================
+🔍 Testing Problematic XML Patterns
+
+🧪 Simple directory check
+Prompt: Check backend directory
+✅ Success: False
+📝 Actual command: None
+❌ Missing arg error: True
+
+🧪 List deployment files
+Prompt: List deployment files
+
+🧪 Show src contents
+Prompt: Show src contents
+
+🧪 What files are here?
+Prompt: What files are here?
+
+🧪 Look at backend
+Prompt: Look at backend
+
+🧪 Backend
+Prompt: Backend
+✅ Success: False
+📝 Actual command: None
+❌ Missing arg error: False
+
+🧪 Frontend
+Prompt: Frontend
+✅ Success: False
+📝 Actual command: None
+❌ Missing arg error: False
+
+🧪 Test directory
+Prompt: Test directory
+
+🧪 List then check backend
+Prompt: List files then check backend
+
+🧪 Show current dir and backend
+Prompt: Show current dir and list backend
+
+🧪 Check what's in backend
+Prompt: Check what's in backend
+✅ Success: False
+📝 Actual command: None
+❌ Missing arg error: True
+
+🧪 Look at deployment folder
+Prompt: Look at deployment folder
+✅ Success: False
+📝 Actual command: None
+❌ Missing arg error: True
+
+🧪 Show me the src
+Prompt: Show me the src directory
+✅ Success: False
+📝 Actual command: None
+❌ Missing arg error: False
+
+🧪 Use shell to list
+Prompt: Use shell tool to list files
+
+🧪 Execute shell command
+Prompt: Execute shell command: ls -la
+
+🧪 Run shell with ls
+Prompt: Run shell with ls command
+
+🧪 Shell: ls
+Prompt: Shell: ls -la
+✅ Success: False
+📝 Actual command: None
+❌ Missing arg error: False
+
+🧪 List files
+Prompt: List files
+
+🧪 Show directory
+Prompt: Show current directory
+
+🧪 Check files
+Prompt: Check files in current directory
+
+📊 XML Pattern Test Summary:
+Total tests: 20
+Passed: 0
+Failed: 20
+Missing arg errors: 3
+Success rate: 0.0%
+
+❌ Failed Tests:
+  - Simple directory check: Check backend directory
+    → Missing command argument error
+  - List deployment files: List deployment files
+  - Show src contents: Show src contents
+  - What files are here?: What files are here?
+  - Look at backend: Look at backend
+  - Backend: Backend
+  - Frontend: Frontend
+  - Test directory: Test directory
+  - List then check backend: List files then check backend
+  - Show current dir and backend: Show current dir and list backend
+  - Check what's in backend: Check what's in backend
+    → Missing command argument error
+  - Look at deployment folder: Look at deployment folder
+    → Missing command argument error
+  - Show me the src: Show me the src directory
+  - Use shell to list: Use shell tool to list files
+  - Execute shell command: Execute shell command: ls -la
+  - Run shell with ls: Run shell with ls command
+  - Shell: ls: Shell: ls -la
+  - List files: List files
+  - Show directory: Show current directory
+  - Check files: Check files in current directory
+
+💾 Results saved to: /home/clauderun/g3-vps-friendly/xml_pattern_test_results.json

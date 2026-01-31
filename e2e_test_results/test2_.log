@@ -1,0 +1,25 @@
+=== Test 2: Multiple tool calls ===
+Commands: pwd, ls, date
+Start time: Fri Jan  9 01:02:32 PM CET 2026
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T12:02:32.124753Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+<think>
+The user wants me to execute a simple command that chains three shell commands: [38;2;216;177;114mpwd && ls -la && date[0m. This will:
+1. Print the current working directory
+2. List all files and directories in long format
+3. Display the current date and time
+
+This is a straightforward shell command execution task. I should use the shell tool to execute this command.
+</think>
+
+I'll execute that command for you.
+<invoke_tool_call>
+<tool name="shell"
+args="{
+  "command": "pwd && ls -la && date"
+}/>
+</tool_call>
+
+⏱️ 2.5s | 💭 1.3s  [2m19%[0m
+End time: Fri Jan  9 01:02:34 PM CET 2026
+Return code: 0

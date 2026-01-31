@@ -19,7 +19,16 @@ pub async fn dispatch_tool<W: UiWriter>(
     tool_call: &ToolCall,
     ctx: &mut ToolContext<'_, W>,
 ) -> Result<String> {
+    debug!("TOOL_DISPATCH: Starting dispatch for tool: {}", tool_call.tool);
     debug!("Dispatching tool: {}", tool_call.tool);
+    
+    // Validate tool call - prevent empty tool names
+    if tool_call.tool.is_empty() {
+        warn!("Received tool call with empty tool name");
+        return Ok("❓ Empty tool name provided".to_string());
+    }
+    
+    debug!("TOOL_DISPATCH: Tool validation passed for: {}", tool_call.tool);
 
     match tool_call.tool.as_str() {
         // Shell tools
@@ -63,8 +72,11 @@ pub async fn dispatch_tool<W: UiWriter>(
         "webdriver_refresh" => webdriver::execute_webdriver_refresh(tool_call, ctx).await,
         "webdriver_quit" => webdriver::execute_webdriver_quit(tool_call, ctx).await,
 
+
+
         // Unknown tool
         _ => {
+            eprintln!("🔍 TOOL_DISPATCH: Unknown tool '{}' - returning error", tool_call.tool);
             warn!("Unknown tool: {}", tool_call.tool);
             Ok(format!("❓ Unknown tool: {}", tool_call.tool))
         }

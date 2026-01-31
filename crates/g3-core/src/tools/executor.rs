@@ -25,6 +25,7 @@ pub struct ToolContext<'a, W: UiWriter> {
     pub pending_images: &'a mut Vec<g3_providers::ImageContent>,
     pub is_autonomous: bool,
     pub requirements_sha: Option<&'a str>,
+
 }
 
 impl<'a, W: UiWriter> ToolContext<'a, W> {

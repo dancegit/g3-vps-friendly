@@ -24,6 +24,8 @@ pub mod webdriver_session;
 pub mod computer_control_webdriver;
 pub use computer_control_webdriver as computer_control;
 
+
+
 #[cfg(test)]
 mod webdriver_test;
 
@@ -52,7 +54,7 @@ mod prompts;
 use anyhow::Result;
 use g3_config::Config;
 use g3_providers::{CacheControl, CompletionRequest, Message, MessageRole, ProviderRegistry};
-use prompts::{get_system_prompt_for_native, SYSTEM_PROMPT_FOR_NON_NATIVE_TOOL_USE};
+use prompts::{get_system_prompt_for_native};
 #[allow(unused_imports)]
 use regex::Regex;
 use serde::{Deserialize, Serialize};
@@ -123,12 +125,14 @@ pub struct Agent<W: UiWriter> {
     /// Working directory for tool execution (set by --codebase-fast-start)
     working_dir: Option<String>,
     background_process_manager: std::sync::Arc<background_process::BackgroundProcessManager>,
+
     /// Pending images to attach to the next user message
     pending_images: Vec<g3_providers::ImageContent>,
     /// Whether this agent is running in agent mode (--agent flag)
     is_agent_mode: bool,
     /// Name of the agent if running in agent mode (e.g., "fowler", "pike")
     agent_name: Option<String>,
+
 }
 
 impl<W: UiWriter> Agent<W> {
@@ -225,6 +229,8 @@ impl<W: UiWriter> Agent<W> {
             ui_writer.print_context_status(&format!("⚠️ {}", warning));
         }
 
+
+
         // Add system prompt as the FIRST message (before README)
         // This ensures the agent always has proper tool usage instructions
         let provider = providers.get(None)?;
@@ -236,13 +242,15 @@ impl<W: UiWriter> Agent<W> {
             custom_prompt
         } else {
             // Use default system prompt based on provider capabilities
-            if provider_has_native_tool_calling {
+            let base_prompt = if provider_has_native_tool_calling {
                 // For native tool calling providers, use a more explicit system prompt
                 get_system_prompt_for_native(config.agent.allow_multiple_tool_calls)
             } else {
                 // For non-native providers (embedded models), use JSON format instructions
-                SYSTEM_PROMPT_FOR_NON_NATIVE_TOOL_USE.to_string()
-            }
+                get_system_prompt_for_native(false)
+            };
+            
+            base_prompt
         };
 
         let system_message = Message::new(MessageRole::System, system_prompt);
@@ -271,6 +279,7 @@ impl<W: UiWriter> Agent<W> {
             None
         };
 
+
         Ok(Self {
             providers,
             context_window,
@@ -297,9 +306,11 @@ impl<W: UiWriter> Agent<W> {
                 background_process::BackgroundProcessManager::new(
                     paths::get_logs_dir().join("background_processes")
                 )),
+
             pending_images: Vec::new(),
             is_agent_mode: false,
             agent_name: None,
+
         })
     }
 
@@ -794,6 +805,7 @@ impl<W: UiWriter> Agent<W> {
                 tool_definitions::ToolConfig::new(
                     self.config.webdriver.enabled,
                     self.config.computer_control.enabled,
+                    false,
                 )))
         } else {
             None
@@ -813,7 +825,7 @@ impl<W: UiWriter> Agent<W> {
             messages,
             max_tokens,
             temperature: Some(self.resolve_temperature(&provider_name)),
-            stream: true, // Enable streaming
+            stream: self.config.agent.enable_streaming, // Use configuration setting
             tools,
             disable_thinking: false,
         };
@@ -1599,16 +1611,22 @@ impl<W: UiWriter> Agent<W> {
 
         debug!("Starting stream_completion_with_tools");
 
-        let mut full_response = String::new();
+        // Check if streaming is enabled in configuration
+        if !self.config.agent.enable_streaming {
+            debug!("Streaming disabled, using non-streaming completion");
+            return self.non_streaming_completion_with_tools(request, show_timing).await;
+        }
+
+        let mut full_response = String::new(); // Used in streaming method for accumulating response
         let mut first_token_time: Option<Duration> = None;
         let stream_start = Instant::now();
         let mut iteration_count = 0;
         const MAX_ITERATIONS: usize = 400; // Prevent infinite loops
         let mut response_started = false;
-        let mut any_tool_executed = false; // Track if ANY tool was executed across all iterations
+        let mut _any_tool_executed = false; // Track if ANY tool was executed (unused in non-streaming) across all iterations
         let mut auto_summary_attempts = 0; // Track auto-summary prompt attempts
         const MAX_AUTO_SUMMARY_ATTEMPTS: usize = 5; // Limit auto-summary retries (increased from 2 for better recovery)
-        let final_output_called = false; // Track if final_output was called
+        let mut final_output_called = false; // Track if final_output was called across ALL iterations
         // Note: Session-level duplicate tracking was removed - we only prevent sequential duplicates (DUP IN CHUNK, DUP IN MSG)
         let mut turn_accumulated_usage: Option<g3_providers::Usage> = None; // Track token usage for timing footer
 
@@ -1897,9 +1915,25 @@ impl<W: UiWriter> Agent<W> {
                         }
 
                         // Process chunk with the new parser
+                        debug!("G3_CORE: Processing chunk - content_len={}, finished={}, tool_calls={:?}, content_preview='{}'", chunk.content.len(), chunk.finished, chunk.tool_calls.is_some(), if chunk.content.len() > 50 { &chunk.content[..50] } else { &chunk.content });
+                        
+                        // Log detailed chunk info for debugging
+                        if chunk.tool_calls.is_some() {
+                            debug!("G3_CORE: CHUNK HAS TOOL CALLS! count={}", chunk.tool_calls.as_ref().map(|v| v.len()).unwrap_or(0));
+                            if let Some(ref tool_calls) = chunk.tool_calls {
+                                for (i, tool) in tool_calls.iter().enumerate() {
+                                    debug!("G3_CORE: Tool call {} - tool: {}, args: {:?}", i, tool.tool, tool.args);
+                                }
+                            }
+                        } else {
+                            debug!("G3_CORE: Chunk has no tool calls");
+                        }
+                        
                         let completed_tools = parser.process_chunk(&chunk);
+                        debug!("G3_CORE: Completed tools from parser: count={}", completed_tools.len());
 
                         // Handle completed tool calls - process all if multiple calls enabled
+                        debug!("G3_CORE: Handling completed tools - count={}, allow_multiple={}", completed_tools.len(), self.config.agent.allow_multiple_tool_calls);
                         let tools_to_process: Vec<ToolCall> =
                             if self.config.agent.allow_multiple_tool_calls {
                                 completed_tools
@@ -1907,6 +1941,7 @@ impl<W: UiWriter> Agent<W> {
                                 // Original behavior - only take the first tool
                                 completed_tools.into_iter().take(1).collect()
                             };
+                        debug!("G3_CORE: Tools to process: count={}", tools_to_process.len());
 
                         // Helper function to check if two tool calls are duplicates
                         let are_duplicates = |tc1: &ToolCall, tc2: &ToolCall| -> bool {
@@ -2207,6 +2242,10 @@ impl<W: UiWriter> Agent<W> {
 
                             // Check if this was a final_output tool call
                             if tool_call.tool == "final_output" {
+                                // Set the flag to track that final_output was called
+                                final_output_called = true;
+                                debug!("final_output tool called - setting final_output_called=true");
+                                
                                 // Finish the streaming markdown formatter before final_output
                                 self.ui_writer.finish_streaming_markdown();
 
@@ -2245,6 +2284,10 @@ impl<W: UiWriter> Agent<W> {
                                         tokens_delta,
                                         self.context_window.percentage_used());
                                 self.ui_writer.print_agent_prompt();
+                                
+                                // CRITICAL: Ensure all tool output is flushed before continuing
+                                // This fixes the issue where tool output appears to be missing in interactive mode
+                                self.ui_writer.flush();
                             }
 
                             // Update the request with the new context for next iteration
@@ -2257,6 +2300,7 @@ impl<W: UiWriter> Agent<W> {
                                     tool_definitions::ToolConfig::new(
                                         self.config.webdriver.enabled,
                                         self.config.computer_control.enabled,
+                                        false,
                                     )));
                             }
 
@@ -2268,7 +2312,7 @@ impl<W: UiWriter> Agent<W> {
                             // 2. At the end when no tools were executed (handled in the "no tool executed" branch)
 
                             tool_executed = true;
-                            any_tool_executed = true; // Track across all iterations
+                            _any_tool_executed = true; // Track across all iterations
 
                             // Reset auto-continue attempts after successful tool execution
                             // This gives the LLM fresh attempts since it's making progress
@@ -2402,8 +2446,8 @@ impl<W: UiWriter> Agent<W> {
 
                                 // If tools were executed in previous iterations but final_output wasn't called,
                                 // break to let the outer loop's auto-continue logic handle it
-                                if any_tool_executed && !final_output_called {
-                                    debug!("Tools were executed but final_output not called - breaking to auto-continue");
+                                if _any_tool_executed && !final_output_called {
+                                    debug!("Tools were executed but final_output not called (final_output_called={}) - breaking to auto-continue", final_output_called);
                                     // NOTE: We intentionally do NOT set full_response here.
                                     // The content was already displayed during streaming.
                                     // Setting full_response would cause duplication when the
@@ -2558,10 +2602,10 @@ impl<W: UiWriter> Agent<W> {
                 // OR if the LLM emitted a complete tool call that wasn't executed
                 // This ensures we don't return control when the LLM clearly intended to call a tool
                 // Note: We removed the redundant condition (any_tool_executed && is_empty_response)
-                // because it's already covered by (any_tool_executed && !final_output_called)
+                // because it's already covered by (_any_tool_executed && !final_output_called)
                 // Auto-continue is only enabled in autonomous mode - in interactive mode,
                 // the user may be asking questions and we should return control to them
-                let should_auto_continue = self.is_autonomous && ((any_tool_executed && !final_output_called) 
+                let should_auto_continue = self.is_autonomous && ((_any_tool_executed && !final_output_called) 
                     || has_incomplete_tool_call 
                     || has_unexecuted_tool_call);
                 if should_auto_continue {
@@ -2640,7 +2684,7 @@ impl<W: UiWriter> Agent<W> {
                             "Max auto-continue attempts ({}) reached after {} iterations. Conditions: any_tool_executed={}, final_output_called={}, has_incomplete={}, has_unexecuted={}, is_empty_response={}",
                             MAX_AUTO_SUMMARY_ATTEMPTS,
                             iteration_count,
-                            any_tool_executed,
+                            _any_tool_executed,
                             final_output_called,
                             has_incomplete_tool_call,
                             has_unexecuted_tool_call,
@@ -2698,6 +2742,8 @@ impl<W: UiWriter> Agent<W> {
                 } else {
                     full_response
                 };
+                
+                debug!("Streaming completion returning final_response (final_output_called={})", final_output_called);
 
                 return Ok(TaskResult::new(final_response, self.context_window.clone()));
             }
@@ -2724,6 +2770,496 @@ impl<W: UiWriter> Agent<W> {
             )
         } else {
             full_response
+        };
+
+        Ok(TaskResult::new(final_response, self.context_window.clone()))
+    }
+
+    /// Non-streaming completion method for when streaming is disabled in configuration
+    async fn non_streaming_completion_with_tools(
+        &mut self,
+        mut request: CompletionRequest,
+        show_timing: bool,
+    ) -> Result<TaskResult> {
+        debug!("Starting non_streaming_completion_with_tools");
+
+        let completion_start = Instant::now();
+        let mut iteration_count = 0;
+        const MAX_ITERATIONS: usize = 400; // Prevent infinite loops
+        let mut _any_tool_executed = false; // Track if ANY tool was executed across all iterations
+        let mut final_output_called = false; // Track if final_output was called
+
+        // Check if we need to compact before starting
+        if self.context_window.should_compact() {
+            // First try thinning if we are at capacity
+            if self.context_window.percentage_used() > 90.0 && self.context_window.should_thin() {
+                self.ui_writer.print_context_status(&format!(
+                    "\n🥒 Context window at {}%. Trying thinning first...",
+                    self.context_window.percentage_used() as u32
+                ));
+
+                let thin_summary = self.do_thin_context();
+                self.ui_writer.print_context_thinning(&thin_summary);
+
+                // Check if thinning was sufficient
+                if !self.context_window.should_compact() {
+                    self.ui_writer.print_context_status(
+                        "✅ Thinning resolved capacity issue. Continuing...\n",
+                    );
+                } else {
+                    self.ui_writer.print_context_status(
+                        "⚠️ Thinning insufficient. Proceeding with compaction...\n",
+                    );
+                }
+            }
+
+            // Only proceed with compaction if still needed after thinning
+            if self.context_window.should_compact() {
+                self.ui_writer.print_context_status(&format!(
+                    "\n🗜️ Context window reaching capacity ({}%). Compacting...",
+                    self.context_window.percentage_used() as u32
+                ));
+
+                let provider = self.providers.get(None)?;
+                let provider_name = provider.name().to_string();
+                let _ = provider; // Release borrow early
+
+                // Apply fallback sequence: thinnify -> skinnify -> hard-coded 5000
+                let mut summary_max_tokens = self.apply_summary_fallback_sequence(&provider_name);
+
+                // Apply provider-specific caps
+                let anthropic_cap = match self.get_thinking_budget_tokens(&provider_name) {
+                    Some(budget) => (budget + 2000).max(10_000), // At least budget + 2000 for response
+                    None => 10_000,
+                };
+                summary_max_tokens = match provider_name.as_str() {
+                    "anthropic" => summary_max_tokens.min(anthropic_cap),
+                    "databricks" => summary_max_tokens.min(10_000),
+                    "embedded" => summary_max_tokens.min(3000),
+                    _ => summary_max_tokens.min(5000),
+                };
+
+                // Ensure minimum floor
+                summary_max_tokens = summary_max_tokens.max(Self::SUMMARY_MIN_TOKENS);
+
+                debug!(
+                    "Requesting summary with max_tokens: {} (current usage: {} tokens)",
+                    summary_max_tokens, self.context_window.used_tokens
+                );
+
+                // Create summary request with FULL history
+                let summary_prompt = self.context_window.create_summary_prompt();
+
+                // Get the full conversation history
+                let conversation_text = self
+                    .context_window
+                    .conversation_history
+                    .iter()
+                    .map(|m| format!("{:?}: {}", m.role, m.content))
+                    .collect::<Vec<_>>()
+                    .join("\n\n");
+
+                let summary_messages = vec![
+                    Message::new(
+                        MessageRole::System,
+                        "You are a helpful assistant that creates concise summaries.".to_string(),
+                    ),
+                    Message::new(
+                        MessageRole::User,
+                        format!(
+                            "Based on this conversation history, {}\n\nConversation:\n{}",
+                            summary_prompt, conversation_text
+                        ),
+                    ),
+                ];
+
+                let provider = self.providers.get(None)?;
+
+                // Determine if we need to disable thinking mode for this request
+                let disable_thinking = self.get_thinking_budget_tokens(provider.name()).map_or(false, |budget| {
+                    let minimum_for_thinking = budget + 1024;
+                    let should_disable = summary_max_tokens <= minimum_for_thinking;
+                    if should_disable {
+                        tracing::warn!("Disabling thinking mode for summary: max_tokens ({}) <= minimum_for_thinking ({})", summary_max_tokens, minimum_for_thinking);
+                    }
+                    should_disable
+                });
+
+                tracing::debug!("Creating summary request: max_tokens={}, disable_thinking={}", summary_max_tokens, disable_thinking);
+
+                let summary_request = CompletionRequest {
+                    messages: summary_messages,
+                    max_tokens: Some(summary_max_tokens),
+                    temperature: Some(self.resolve_temperature(provider.name())),
+                    stream: false,
+                    tools: None,
+                    disable_thinking,
+                };
+
+                // Get the summary
+                match provider.complete(summary_request).await {
+                    Ok(summary_response) => {
+                        self.ui_writer
+                            .print_context_status("✅ Context compacted successfully.\n");
+
+                        // Get the latest user message to preserve it
+                        let latest_user_msg = self
+                            .context_window
+                            .conversation_history
+                            .iter()
+                            .rev()
+                            .find(|m| matches!(m.role, MessageRole::User))
+                            .map(|m| m.content.clone());
+
+                        // Reset context with summary
+                        let chars_saved = self
+                            .context_window
+                            .reset_with_summary(summary_response.content, latest_user_msg);
+                        self.compaction_events.push(chars_saved);
+                    }
+                    Err(e) => {
+                        error!("Failed to create summary: {}", e);
+                        self.ui_writer.print_context_status(
+                            "⚠️ Unable to create summary. Please try again or start a new session.\n",
+                        );
+                    }
+                }
+            }
+        }
+
+        // Main loop for non-streaming completion with tool execution
+        loop {
+            iteration_count += 1;
+            debug!("Starting non-streaming iteration {}", iteration_count);
+            if iteration_count > MAX_ITERATIONS {
+                warn!("Maximum iterations reached, stopping non-streaming completion");
+                break;
+            }
+
+            // Add a small delay between iterations to prevent "model busy" errors
+            if iteration_count > 1 {
+                tokio::time::sleep(tokio::time::Duration::from_millis(50)).await;
+            }
+
+            // Get provider info for logging, then drop it to avoid borrow issues
+            let (provider_name, provider_model) = {
+                let provider = self.providers.get(None)?;
+                (provider.name().to_string(), provider.model().to_string())
+            };
+            debug!("Got provider: {}", provider_name);
+
+            // Log request details
+            debug!("Starting non-streaming completion with provider={}, model={}, messages={}, tools={}, max_tokens={:?}",
+                provider_name,
+                provider_model,
+                request.messages.len(),
+                request.tools.is_some(),
+                request.max_tokens
+            );
+
+            // Write context window summary every time we send messages to LLM
+            self.write_context_window_summary();
+
+            // Use retry logic for the completion
+            let retry_config = crate::retry::RetryConfig {
+                max_retries: if self.is_autonomous {
+                    self.config.agent.autonomous_max_retry_attempts
+                } else {
+                    self.config.agent.max_retry_attempts
+                },
+                is_autonomous: self.is_autonomous,
+                role_name: "agent".to_string(),
+            };
+
+            let completion_result = crate::retry::retry_operation(
+                "Non-streaming completion",
+                || async {
+                    let provider = self.providers.get(None)?;
+                    provider.complete(request.clone()).await
+                },
+                retry_config.max_retries,
+                retry_config.is_autonomous,
+                |msg| {
+                    if !self.quiet {
+                        self.ui_writer.println(msg);
+                    }
+                },
+            ).await;
+
+            match completion_result {
+                Ok(response) => {
+                    let _completion_duration = completion_start.elapsed();
+                    let response_content = response.content.clone();
+
+                    // Print the response
+                    if !self.quiet {
+                        self.ui_writer.print_agent_response(&response_content);
+                    }
+
+                    // Check for tool calls in the response
+                    let provider = self.providers.get(None)?;
+                    let has_native_tool_calling = provider.has_native_tool_calling();
+                    let _ = provider; // Release borrow early
+
+                    let mut tool_executed = false;
+                    let _current_response = String::new();
+
+                    if has_native_tool_calling {
+                        // For native tool calling providers, tool calls are handled by the provider
+                        // The response.content should already contain the processed text
+                        debug!("Native tool calling provider completed non-streaming request");
+                    } else {
+                        // For non-native providers, we need to manually parse JSON tool calls
+                        // Use the streaming parser to process the complete response as if it were a single chunk
+                        let mut parser = StreamingToolParser::new();
+                        
+                        // Create a mock completion chunk with the full response
+                        let mock_chunk = g3_providers::CompletionChunk {
+                            content: response_content.clone(),
+                            finished: true,
+                            tool_calls: None, // Tool calls are embedded in content for non-native providers
+                            usage: None, // No usage info in non-streaming mode
+                        };
+                        
+                        let completed_tools = parser.process_chunk(&mock_chunk);
+
+                        if !completed_tools.is_empty() {
+                            debug!("Found {} tool calls in non-streaming response", completed_tools.len());
+                            
+                            // Process each tool call
+                            for tool_call in completed_tools {
+                                // Check for final_output tool
+                                if tool_call.tool == "final_output" {
+                                    final_output_called = true;
+                                    debug!("final_output tool called in non-streaming mode - setting final_output_called=true");
+                                }
+
+                                // Execute the tool with formatted output
+                                if tool_call.tool != "final_output" {
+                                    // Tool call header
+                                    self.ui_writer.print_tool_header(&tool_call.tool, Some(&tool_call.args));
+                                    if let Some(args_obj) = tool_call.args.as_object() {
+                                        for (key, value) in args_obj {
+                                            let value_str = match value {
+                                                serde_json::Value::String(s) => {
+                                                    if tool_call.tool == "shell" && key == "command" {
+                                                        if let Some(first_line) = s.lines().next() {
+                                                            if s.lines().count() > 1 {
+                                                                format!("{}...", first_line)
+                                                            } else {
+                                                                first_line.to_string()
+                                                            }
+                                                        } else {
+                                                            s.clone()
+                                                        }
+                                                    } else if s.chars().count() > 100 {
+                                                        streaming::truncate_for_display(s, 100)
+                                                    } else {
+                                                        s.clone()
+                                                    }
+                                                }
+                                                _ => value.to_string(),
+                                            };
+                                            self.ui_writer.print_tool_arg(key, &value_str);
+                                        }
+                                    }
+                                    self.ui_writer.print_tool_output_header();
+                                }
+
+                                // Clone working_dir to avoid borrow checker issues
+                                let working_dir = self.working_dir.clone();
+                                let exec_start = Instant::now();
+                                // Add 8-minute timeout for tool execution
+                                let tool_result = match tokio::time::timeout(
+                                    Duration::from_secs(8 * 60), // 8 minutes
+                                    // Use working_dir if set (from --codebase-fast-start)
+                                    self.execute_tool_in_dir(&tool_call, working_dir.as_deref()),
+                                )
+                                .await
+                                {
+                                    Ok(result) => result?,
+                                    Err(_) => {
+                                        warn!("Tool call {} timed out after 8 minutes", tool_call.tool);
+                                        "❌ Tool execution timed out after 8 minutes".to_string()
+                                    }
+                                };
+                                let exec_duration = exec_start.elapsed();
+
+                                // Track tool call metrics
+                                let tool_success = !tool_result.contains("❌");
+                                self.tool_call_metrics.push((
+                                    tool_call.tool.clone(),
+                                    exec_duration,
+                                    tool_success,
+                                ));
+
+                                // Display tool execution result with proper indentation
+                                if tool_call.tool == "final_output" {
+                                    // For final_output, use the dedicated method that renders markdown
+                                    // with a spinner animation
+                                    self.ui_writer.print_final_output(&tool_result);
+                                } else {
+                                    let output_lines: Vec<&str> = tool_result.lines().collect();
+
+                                    // Check if UI wants full output (machine mode) or truncated (human mode)
+                                    let wants_full = self.ui_writer.wants_full_output();
+
+                                    const MAX_LINES: usize = 5;
+                                    const MAX_LINE_WIDTH: usize = 80;
+                                    let output_len = output_lines.len();
+
+                                    // Skip printing for todo tools - they already print their content
+                                    let is_todo_tool =
+                                        tool_call.tool == "todo_read" || tool_call.tool == "todo_write";
+
+                                    if !is_todo_tool {
+                                        let max_lines_to_show = if wants_full { output_len } else { MAX_LINES };
+
+                                        for (idx, line) in output_lines.iter().enumerate() {
+                                            if !wants_full && idx >= max_lines_to_show {
+                                                break;
+                                            }
+                                            let clipped_line = streaming::truncate_line(line, MAX_LINE_WIDTH, !wants_full);
+                                            self.ui_writer.update_tool_output_line(&clipped_line);
+                                        }
+
+                                        if !wants_full && output_len > MAX_LINES {
+                                            self.ui_writer.print_tool_output_summary(output_len);
+                                        }
+                                    }
+                                }
+
+                                // Add the tool call and result to the context window
+                                let tool_message = Message::new(
+                                    MessageRole::Assistant,
+                                    format!(
+                                        "{{\"tool\": \"{}\", \"args\": {}}}",
+                                        tool_call.tool, tool_call.args
+                                    ),
+                                );
+                                let mut result_message = Message::new(
+                                    MessageRole::User,
+                                    format!("Tool result: {}", tool_result),
+                                );
+
+                                // Attach any pending images to the result message
+                                // (images loaded via read_image tool)
+                                if !self.pending_images.is_empty() {
+                                    result_message.images = std::mem::take(&mut self.pending_images);
+                                }
+
+                                self.context_window.add_message(tool_message);
+                                self.context_window.add_message(result_message);
+
+                                // Closure marker with timing
+                                if tool_call.tool != "final_output" {
+                                    self.ui_writer
+                                        .print_tool_timing(&Self::format_duration(exec_duration),
+                                            0, // No token delta info in non-streaming
+                                            self.context_window.percentage_used());
+                                }
+
+                                tool_executed = true;
+                                _any_tool_executed = true; // Track across all iterations
+
+                                // Reset auto-continue attempts after successful tool execution
+                                // This gives the LLM fresh attempts since it's making progress
+                            }
+
+                            // Check if this was a final_output tool call
+                            if final_output_called {
+                                // Save context window BEFORE returning so the session log includes final_output
+                                self.save_context_window("completed");
+                                
+                                // Add timing if needed
+                                let final_response = if show_timing {
+                                    let timing_footer = Self::format_timing_footer(
+                                        completion_start.elapsed(),
+                                        completion_start.elapsed(), // No first token time in non-streaming
+                                        None, // No usage info in non-streaming mode
+                                        self.context_window.percentage_used(),
+                                    );
+                                    timing_footer
+                                } else {
+                                    String::new()
+                                };
+
+                                return Ok(TaskResult::new(
+                                    final_response,
+                                    self.context_window.clone(),
+                                ));
+                            }
+                        }
+                    }
+
+                    // Update the request with the new context for next iteration
+                    request.messages = self.context_window.conversation_history.clone();
+
+                    // Ensure tools are included for native providers in subsequent iterations
+                    let provider_for_tools = self.providers.get(None)?;
+                    if provider_for_tools.has_native_tool_calling() {
+                        request.tools = Some(tool_definitions::create_tool_definitions(
+                            tool_definitions::ToolConfig::new(
+                                self.config.webdriver.enabled,
+                                self.config.computer_control.enabled,
+                                false,
+                            )));
+                    }
+
+                    // If a tool was executed, continue the loop for another iteration
+                    if tool_executed {
+                        debug!("Tool was executed, continuing to next iteration");
+                        continue;
+                    }
+
+                    // No tools were executed - we're done
+                    debug!("Non-streaming completion finished without tool execution");
+
+                    // Add the response to context window
+                    if !response_content.trim().is_empty() {
+                        let assistant_message = Message::new(MessageRole::Assistant, response_content.clone());
+                        self.context_window.add_message(assistant_message);
+                    }
+
+                    // Save context window BEFORE returning
+                    self.save_context_window("completed");
+                    
+                    // Add timing if requested
+                    let final_response = if show_timing {
+                        let timing_footer = Self::format_timing_footer(
+                            completion_start.elapsed(),
+                            completion_start.elapsed(), // No first token time in non-streaming
+                            None, // No usage info in non-streaming mode
+                            self.context_window.percentage_used(),
+                        );
+                        format!("{}\n\n{}", response_content, timing_footer)
+                    } else {
+                        response_content
+                    };
+
+                    return Ok(TaskResult::new(final_response, self.context_window.clone()));
+                }
+                Err(e) => {
+                    error!("Non-streaming completion failed: {}", e);
+                    return Err(e);
+                }
+            }
+        }
+
+        // If we exit the loop due to max iterations
+        warn!("Maximum iterations ({}) reached in non-streaming completion", MAX_ITERATIONS);
+        
+        // Add timing if needed
+        let final_response = if show_timing {
+            let timing_footer = Self::format_timing_footer(
+                completion_start.elapsed(),
+                completion_start.elapsed(), // No first token time in non-streaming
+                None, // No usage info in non-streaming mode
+                self.context_window.percentage_used(),
+            );
+            format!("\n\n{}", timing_footer)
+        } else {
+            String::new()
         };
 
         Ok(TaskResult::new(final_response, self.context_window.clone()))
@@ -2789,10 +3325,13 @@ impl<W: UiWriter> Agent<W> {
             pending_images: &mut self.pending_images,
             is_autonomous: self.is_autonomous,
             requirements_sha: self.requirements_sha.as_deref(),
+
         };
 
         // Dispatch to the appropriate tool handler
+        debug!("Executing tool: {}", tool_call.tool);
         let result = tool_dispatch::dispatch_tool(tool_call, &mut ctx).await?;
+        debug!("Tool execution completed: {}", tool_call.tool);
 
         // Handle special case: final_output needs to save session continuation
         if tool_call.tool == "final_output" {

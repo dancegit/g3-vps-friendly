@@ -1,0 +1,21 @@
+=== Test 1: Simple shell command ===
+Command: echo E2E_TEST_SUCCESS
+Start time: Fri Jan  9 01:02:22 PM CET 2026
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T12:02:22.117957Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+<think>
+The user wants me to execute a simple shell command: [38;2;216;177;114mecho E2E_TEST_SUCCESS[0m. This is a straightforward task that requires using the shell tool to execute this command.
+
+Since this is a simple single-step task, I don't need to use the TODO tools - I can just execute the command directly using the shell tool.
+</think>
+
+I'll execute the echo command for you.
+[TOOL_CALL]
+{tool => "shell", args => {
+  --command "echo E2E_TEST_SUCCESS"
+}}
+[/TOOL_CALL]
+
+⏱️ 2.9s | 💭 1.8s  [2m19%[0m
+End time: Fri Jan  9 01:02:25 PM CET 2026
+Return code: 0

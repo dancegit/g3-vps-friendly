@@ -1,0 +1,362 @@
+   Compiling libc v0.2.180
+   Compiling proc-macro2 v1.0.105
+   Compiling quote v1.0.43
+   Compiling unicode-ident v1.0.22
+   Compiling shlex v1.3.0
+   Compiling find-msvc-tools v0.1.6
+   Compiling cfg-if v1.0.4
+   Compiling memchr v2.7.6
+   Compiling once_cell v1.21.3
+   Compiling serde_core v1.0.228
+   Compiling smallvec v1.15.1
+   Compiling version_check v0.9.5
+   Compiling itoa v1.0.17
+   Compiling pin-project-lite v0.2.16
+   Compiling tree-sitter-language v0.1.6
+   Compiling bytes v1.11.0
+   Compiling log v0.4.29
+   Compiling futures-core v0.3.31
+   Compiling parking_lot_core v0.9.12
+   Compiling futures-sink v0.3.31
+   Compiling scopeguard v1.2.0
+   Compiling futures-channel v0.3.31
+   Compiling stable_deref_trait v1.2.1
+   Compiling lock_api v0.4.14
+   Compiling serde v1.0.228
+   Compiling pin-utils v0.1.0
+   Compiling futures-task v0.3.31
+   Compiling futures-io v0.3.31
+   Compiling slab v0.4.11
+   Compiling zerocopy v0.8.33
+   Compiling tracing-core v0.1.36
+   Compiling syn v2.0.114
+   Compiling vcpkg v0.2.15
+   Compiling pkg-config v0.3.32
+   Compiling litemap v0.8.1
+   Compiling writeable v0.6.2
+   Compiling jobserver v0.1.34
+   Compiling errno v0.3.14
+   Compiling cc v1.2.51
+   Compiling parking_lot v0.12.5
+   Compiling signal-hook-registry v1.4.8
+   Compiling socket2 v0.6.1
+   Compiling mio v1.1.1
+   Compiling minimal-lexical v0.2.1
+   Compiling httparse v1.10.1
+   Compiling icu_properties_data v2.1.2
+   Compiling hashbrown v0.16.1
+   Compiling equivalent v1.0.2
+   Compiling icu_normalizer_data v2.1.1
+   Compiling zmij v1.0.12
+   Compiling glob v0.3.3
+   Compiling try-lock v0.2.5
+   Compiling crunchy v0.2.4
+   Compiling tower-service v0.3.3
+   Compiling bitflags v2.10.0
+   Compiling percent-encoding v2.3.2
+   Compiling want v0.3.1
+   Compiling clang-sys v1.8.1
+   Compiling indexmap v2.13.0
+   Compiling http v1.4.0
+   Compiling ahash v0.8.12
+   Compiling prettyplease v0.2.37
+   Compiling tiny-keccak v2.0.2
+   Compiling fnv v1.0.7
+   Compiling openssl-sys v0.9.111
+   Compiling httpdate v1.0.3
+   Compiling rustix v0.38.44
+   Compiling openssl v0.10.75
+   Compiling foreign-types-shared v0.1.1
+   Compiling serde_json v1.0.149
+   Compiling foreign-types v0.3.2
+   Compiling http v0.2.12
+   Compiling form_urlencoded v1.2.2
+   Compiling base64 v0.21.7
+   Compiling native-tls v0.2.14
+   Compiling http-body v1.0.1
+   Compiling regex-syntax v0.8.8
+   Compiling either v1.15.0
+   Compiling thiserror v1.0.69
+   Compiling linux-raw-sys v0.4.15
+   Compiling typenum v1.19.0
+   Compiling nom v7.1.3
+   Compiling getrandom v0.2.16
+   Compiling generic-array v0.14.7
+   Compiling libloading v0.8.9
+   Compiling option-ext v0.2.0
+   Compiling utf8_iter v1.0.4
+   Compiling bindgen v0.69.5
+   Compiling home v0.5.12
+   Compiling synstructure v0.13.2
+   Compiling regex-automata v0.4.13
+   Compiling ucd-trie v0.1.7
+   Compiling openssl-probe v0.1.6
+   Compiling allocator-api2 v0.2.21
+   Compiling pest v2.8.5
+   Compiling hashbrown v0.14.5
+   Compiling cexpr v0.6.0
+   Compiling which v4.4.2
+   Compiling const-random-macro v0.1.16
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.8.1
+   Compiling futures-macro v0.3.31
+   Compiling tokio-macros v2.6.0
+   Compiling serde_derive v1.0.228
+   Compiling zerovec-derive v0.11.2
+   Compiling displaydoc v0.2.5
+   Compiling tracing-attributes v0.1.31
+   Compiling tokio v1.49.0
+   Compiling futures-util v0.3.31
+   Compiling zerofrom v0.1.6
+   Compiling yoke v0.8.1
+   Compiling openssl-macros v0.1.1
+   Compiling zerotrie v0.2.3
+   Compiling zerovec v0.11.5
+   Compiling thiserror-impl v1.0.69
+   Compiling tracing v0.1.44
+   Compiling tinystr v0.8.2
+   Compiling icu_locale_core v2.1.1
+   Compiling potential_utf v0.1.4
+   Compiling icu_collections v2.1.1
+   Compiling regex v1.12.2
+   Compiling itertools v0.12.1
+   Compiling icu_provider v2.1.1
+   Compiling link-cplusplus v1.0.12
+   Compiling rustc-hash v1.1.0
+   Compiling icu_properties v2.1.2
+   Compiling icu_normalizer v2.1.1
+   Compiling time-core v0.1.6
+   Compiling num-conv v0.1.0
+   Compiling powerfmt v0.2.0
+   Compiling lazy_static v1.5.0
+   Compiling lazycell v1.3.0
+   Compiling atomic-waker v1.1.2
+   Compiling deranged v0.5.5
+   Compiling futures-executor v0.3.31
+   Compiling time-macros v0.2.24
+   Compiling pest_meta v2.8.5
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling const-random v0.1.18
+   Compiling async-trait v0.1.89
+   Compiling http-body-util v0.1.3
+   Compiling tokio-native-tls v0.3.1
+   Compiling tokio-util v0.7.18
+   Compiling hyper v1.8.1
+   Compiling encoding_rs v0.8.35
+   Compiling rustversion v1.0.22
+   Compiling unicode-segmentation v1.12.0
+   Compiling getrandom v0.3.4
+   Compiling anyhow v1.0.100
+   Compiling ryu v1.0.22
+   Compiling mime v0.3.17
+   Compiling autocfg v1.5.0
+   Compiling h2 v0.3.27
+   Compiling rand_core v0.6.4
+   Compiling time v0.3.44
+   Compiling hyper-util v0.1.19
+   Compiling num-traits v0.2.19
+   Compiling dlv-list v0.5.2
+   Compiling pest_generator v2.8.5
+   Compiling serde_spanned v0.6.9
+   Compiling toml_datetime v0.6.11
+   Compiling dirs-sys v0.5.0
+   Compiling http-body v0.4.6
+   Compiling ppv-lite86 v0.2.21
+   Compiling socket2 v0.5.10
+   Compiling cookie v0.16.2
+   Compiling aho-corasick v1.1.4
+   Compiling tower-layer v0.3.3
+   Compiling toml_write v0.1.2
+   Compiling winnow v0.7.14
+   Compiling sync_wrapper v1.0.2
+   Compiling rustix v1.1.3
+   Compiling rand_chacha v0.3.1
+   Compiling dirs v6.0.0
+   Compiling pest_derive v2.8.5
+   Compiling ordered-multimap v0.7.3
+   Compiling serde_urlencoded v0.7.1
+   Compiling crypto-common v0.1.7
+   Compiling llama_cpp_sys v0.3.2
+   Compiling block-buffer v0.10.4
+   Compiling futures v0.3.31
+   Compiling hashlink v0.8.4
+   Compiling dirs-sys v0.4.1
+   Compiling cookie v0.18.1
+   Compiling arraydeque v0.5.1
+   Compiling convert_case v0.4.0
+   Compiling linux-raw-sys v0.11.0
+   Compiling yaml-rust2 v0.8.1
+   Compiling toml_edit v0.22.27
+   Compiling hyper v0.14.32
+   Compiling derive_more v0.99.20
+   Compiling dirs v5.0.1
+   Compiling digest v0.10.7
+   Compiling axum-core v0.4.5
+   Compiling rust-ini v0.20.0
+   Compiling toml v0.8.23
+   Compiling json5 v0.4.1
+   Compiling rand v0.8.5
+   Compiling shellexpand v3.1.1
+   Compiling tower v0.5.2
+   Compiling hyper-tls v0.5.0
+   Compiling convert_case v0.6.0
+   Compiling ron v0.8.1
+   Compiling rustls-pemfile v1.0.4
+   Compiling tree-sitter-go v0.23.4
+   Compiling tree-sitter-haskell v0.23.1 (https://github.com/tree-sitter/tree-sitter-haskell#0975ef72)
+   Compiling tree-sitter-java v0.23.5
+   Compiling tree-sitter-rust v0.23.3
+   Compiling tree-sitter-typescript v0.23.2
+   Compiling tree-sitter-cpp v0.23.4
+   Compiling tree-sitter-javascript v0.23.1
+   Compiling tree-sitter-scheme v0.24.7
+   Compiling tree-sitter-python v0.23.6
+   Compiling tree-sitter-c v0.23.4
+   Compiling tree-sitter v0.24.7
+   Compiling serde_path_to_error v0.1.20
+   Compiling num_cpus v1.17.0
+   Compiling matchit v0.7.3
+   Compiling unicode-xid v0.2.6
+   Compiling base64 v0.22.1
+   Compiling iana-time-zone v0.1.64
+   Compiling sync_wrapper v0.1.2
+   Compiling fastrand v2.3.0
+   Compiling sdd v3.0.10
+   Compiling cpufeatures v0.2.17
+   Compiling pathdiff v0.2.3
+   Compiling ipnet v2.11.0
+   Compiling tempfile v3.24.0
+   Compiling sha2 v0.10.9
+   Compiling chrono v0.4.42
+   Compiling scc v2.4.0
+   Compiling axum v0.7.9
+   Compiling reqwest v0.11.27
+   Compiling const_format_proc_macros v0.2.34
+   Compiling config v0.14.1
+   Compiling nanoid v0.4.0
+   Compiling webdriver v0.50.0
+   Compiling hyper-tls v0.6.0
+   Compiling webbrowser v1.0.6
+   Compiling tokio-stream v0.1.18
+   Compiling serial_test_derive v3.3.1
+   Compiling unsafe-libyaml v0.2.11
+   Compiling same-file v1.0.6
+   Compiling streaming-iterator v0.1.9
+   Compiling serial_test v3.3.1
+   Compiling walkdir v2.5.0
+   Compiling fantoccini v0.21.5
+   Compiling serde_yaml v0.9.34+deprecated
+   Compiling g3-config v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-config)
+   Compiling const_format v0.2.35
+   Compiling g3-execution v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-execution)
+   Compiling uuid v1.19.0
+   Compiling llama_cpp v0.3.2
+   Compiling g3-providers v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-providers)
+   Compiling g3-core v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-core)
+error[E0432]: unresolved import `super::computer_control`
+ --> crates/g3-core/src/webdriver_test.rs:3:16
+  |
+3 |     use super::computer_control::{ChromeDriver, WebDriverController};
+  |                ^^^^^^^^^^^^^^^^ could not find `computer_control` in `super`
+
+warning: unused import: `super::*`
+   --> crates/g3-core/src/webdriver_session.rs:120:9
+    |
+120 |     use super::*;
+    |         ^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error[E0599]: no function or associated item named `new_with_goose` found for struct `tool_definitions::ToolConfig` in the current scope
+   --> crates/g3-core/src/tool_definitions.rs:495:34
+    |
+ 12 | pub struct ToolConfig {
+    | --------------------- function or associated item `new_with_goose` not found for this struct
+...
+495 |         let config = ToolConfig::new_with_goose(true, true, true, true);
+    |                                  ^^^^^^^^^^^^^^ function or associated item not found in `tool_definitions::ToolConfig`
+    |
+note: if you're trying to build a new `tool_definitions::ToolConfig`, consider using `tool_definitions::ToolConfig::new` which returns `tool_definitions::ToolConfig`
+   --> crates/g3-core/src/tool_definitions.rs:20:5
+    |
+ 20 |     pub fn new(webdriver: bool, computer_control: bool, _mcp: bool) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0282]: type annotations needed
+  --> crates/g3-core/src/webdriver_test.rs:10:13
+   |
+10 |         let mut driver = ChromeDriver::with_port_headless(9515).await?;
+   |             ^^^^^^^^^^
+...
+13 |         driver.navigate("https://example.com").await?;
+   |         ------ type must be known at this point
+   |
+help: consider giving `driver` an explicit type
+   |
+10 |         let mut driver: /* Type */ = ChromeDriver::with_port_headless(9515).await?;
+   |                       ++++++++++++
+
+error[E0282]: type annotations needed
+  --> crates/g3-core/src/webdriver_test.rs:19:13
+   |
+19 |         let url = driver.current_url().await?;
+   |             ^^^
+20 |         assert!(url.contains("example.com"));
+   |                 --- type must be known at this point
+   |
+help: consider giving `url` an explicit type
+   |
+19 |         let url: /* Type */ = driver.current_url().await?;
+   |                ++++++++++++
+
+error[E0282]: type annotations needed
+  --> crates/g3-core/src/webdriver_test.rs:23:13
+   |
+23 |         let h1_element = driver.find_element("h1").await?;
+   |             ^^^^^^^^^^
+24 |         let h1_text = h1_element.text().await?;
+   |                       ---------- type must be known at this point
+   |
+help: consider giving `h1_element` an explicit type
+   |
+23 |         let h1_element: /* Type */ = driver.find_element("h1").await?;
+   |                       ++++++++++++
+
+error[E0282]: type annotations needed
+  --> crates/g3-core/src/webdriver_test.rs:24:13
+   |
+24 |         let h1_text = h1_element.text().await?;
+   |             ^^^^^^^
+25 |         assert!(h1_text.contains("Example Domain"));
+   |                 ------- type must be known at this point
+   |
+help: consider giving `h1_text` an explicit type
+   |
+24 |         let h1_text: /* Type */ = h1_element.text().await?;
+   |                    ++++++++++++
+
+warning: variable does not need to be mutable
+   --> crates/g3-core/src/streaming_parser.rs:706:13
+    |
+706 |         let mut parser = StreamingToolParser::new();
+    |             ----^^^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `final_output_called` is never read
+    --> crates/g3-core/src/lib.rs:2229:33
+     |
+2229 | ...                   final_output_called = true;
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+     = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+Some errors have detailed explanations: E0282, E0432, E0599.
+For more information about an error, try `rustc --explain E0282`.
+warning: `g3-core` (lib test) generated 3 warnings
+error: could not compile `g3-core` (lib test) due to 6 previous errors; 3 warnings emitted

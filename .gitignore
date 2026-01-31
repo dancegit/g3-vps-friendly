@@ -1,4 +1,7 @@
 
+
+*goose*
+
 Cargo.lock
 *.lock
 .env*

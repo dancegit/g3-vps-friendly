@@ -1,0 +1,84 @@
+# G3 Configuration - Coach/Player/Planner Setup for Autonomous Development
+# Optimized for localhost:9000 load balancer with minimaxm2/kimik2
+
+[providers]
+# Default provider for general use
+default_provider = "anthropic.minimax_local"
+
+# Coach provider - for code review and analysis (more thoughtful, lower temp)
+coach = "anthropic.coach"
+
+# Player provider - for code generation and implementation (more creative, higher temp)
+player = "anthropic.player"
+
+# Planner provider - for requirements refinement and project planning
+planner = "anthropic.planner"
+
+# Base Anthropic configuration for general use
+[providers.anthropic.minimax_local]
+model = "minimax"
+base_url = "http://localhost:9000/v1/messages"
+max_tokens = 64000
+temperature = 0.2
+api_key = "fake-api-key-for-localhost-endpoint"
+use_bearer_auth = true  # For load balancer compatibility
+
+# Coach configuration - optimized for careful analysis and review
+[providers.anthropic.coach]
+model = "minimax"
+base_url = "http://localhost:9000/v1/messages"
+max_tokens = 32000  # Smaller context for focused review
+temperature = 0.1   # Very low temp for consistent, careful analysis
+api_key = "fake-api-key-for-localhost-endpoint"
+use_bearer_auth = true
+
+# Player configuration - optimized for creative implementation
+[providers.anthropic.player]
+model = "minimax"
+base_url = "http://localhost:9000/v1/messages"
+max_tokens = 64000  # Larger context for complex implementations
+temperature = 0.3   # Higher temp for creative problem solving
+api_key = "fake-api-key-for-localhost-endpoint"
+use_bearer_auth = true
+
+# Planner configuration - optimized for requirements and planning
+[providers.anthropic.planner]
+model = "minimax"
+base_url = "http://localhost:9000/v1/messages"
+max_tokens = 64000
+temperature = 0.15  # Balanced temp for planning (between coach and player)
+api_key = "fake-api-key-for-localhost-endpoint"
+use_bearer_auth = true
+
+[agent]
+name = "coach-player-agent"
+provider = "anthropic.minimax_local"  # Default for interactive mode
+fallback_default_max_tokens = 8192
+enable_streaming = true              # Enable streaming for better UX
+allow_multiple_tool_calls = true     # Allow multiple tools per response
+timeout_seconds = 120                # Longer timeout for complex operations
+max_retry_attempts = 5               # More retries for reliability
+autonomous_max_retry_attempts = 8    # Even more for autonomous mode
+auto_compact = true                  # Auto compact at 80% context
+
+[computer_control]
+enabled = false                      # Disable for now (experimental)
+require_confirmation = true
+max_actions_per_second = 5
+
+[webdriver]
+enabled = false                      # Disable for now (can enable if needed)
+browser = "chrome-headless"
+safari_port = 4444
+chrome_port = 9515"""
+
+print("🎯 COACH/PLAYER/PLANNER CONFIGURATION CREATED")
+print("=" * 60)
+print("Configuration file saved: coach_player_planner_config.toml")
+print("\n📋 Configuration Summary:")
+print("✅ Coach: anthropic.coach - Low temp (0.1) for careful analysis")
+print("✅ Player: anthropic.player - Higher temp (0.3) for creative implementation") 
+print("✅ Planner: anthropic.planner - Balanced temp (0.15) for requirements refinement")
+print("✅ All use Bearer auth for localhost:9000 load balancer compatibility")
+print("✅ Optimized retry settings for autonomous operations")
+print("✅ Streaming enabled for better user experience")

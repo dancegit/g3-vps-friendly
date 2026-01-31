@@ -124,18 +124,21 @@ pub struct AnthropicProvider {
     name: String,
     api_key: String,
     model: String,
+    base_url: String,
     max_tokens: u32,
     temperature: f32,
     #[allow(dead_code)]
     cache_config: Option<String>,
     enable_1m_context: bool,
     thinking_budget_tokens: Option<u32>,
+    use_bearer_auth: bool, // New field to support Bearer token authentication
 }
 
 impl AnthropicProvider {
     pub fn new(
         api_key: String,
         model: Option<String>,
+        base_url: Option<String>,
         max_tokens: Option<u32>,
         temperature: Option<f32>,
         cache_config: Option<String>,
@@ -148,20 +151,75 @@ impl AnthropicProvider {
             .map_err(|e| anyhow!("Failed to create HTTP client: {}", e))?;
 
         let model = model.unwrap_or_else(|| "claude-3-5-sonnet-20241022".to_string());
+        let base_url = base_url.unwrap_or_else(|| ANTHROPIC_API_URL.to_string());
 
-        debug!("Initialized Anthropic provider with model: {}", model);
+        debug!("Initialized Anthropic provider with model: {} and base_url: {}", model, base_url);
 
         Ok(Self {
             client,
             name: "anthropic".to_string(),
             api_key,
             model,
+            base_url,
             max_tokens: max_tokens.unwrap_or(4096),
             temperature: temperature.unwrap_or(0.1),
             cache_config,
             enable_1m_context: enable_1m_context.unwrap_or(false),
             thinking_budget_tokens,
+            use_bearer_auth: false, // Default to standard Anthropic auth
         })
+    }
+
+    /// Create a new AnthropicProvider with Bearer token authentication
+    pub fn new_with_bearer_auth(
+        api_key: String,
+        model: Option<String>,
+        base_url: Option<String>,
+        max_tokens: Option<u32>,
+        temperature: Option<f32>,
+        cache_config: Option<String>,
+        enable_1m_context: Option<bool>,
+        thinking_budget_tokens: Option<u32>,
+    ) -> Result<Self> {
+        let mut provider = Self::new(
+            api_key,
+            model,
+            base_url,
+            max_tokens,
+            temperature,
+            cache_config,
+            enable_1m_context,
+            thinking_budget_tokens,
+        )?;
+        provider.use_bearer_auth = true;
+        Ok(provider)
+    }
+
+    /// Create a new AnthropicProvider with a custom name and Bearer token authentication
+    pub fn new_with_name_and_bearer_auth(
+        name: String,
+        api_key: String,
+        model: Option<String>,
+        base_url: Option<String>,
+        max_tokens: Option<u32>,
+        temperature: Option<f32>,
+        cache_config: Option<String>,
+        enable_1m_context: Option<bool>,
+        thinking_budget_tokens: Option<u32>,
+    ) -> Result<Self> {
+        let mut provider = Self::new_with_name(
+            name,
+            api_key,
+            model,
+            base_url,
+            max_tokens,
+            temperature,
+            cache_config,
+            enable_1m_context,
+            thinking_budget_tokens,
+        )?;
+        provider.use_bearer_auth = true;
+        Ok(provider)
     }
 
     /// Create a new AnthropicProvider with a custom name (e.g., "anthropic.default")
@@ -169,6 +227,7 @@ impl AnthropicProvider {
         name: String,
         api_key: String,
         model: Option<String>,
+        base_url: Option<String>,
         max_tokens: Option<u32>,
         temperature: Option<f32>,
         cache_config: Option<String>,
@@ -181,29 +240,38 @@ impl AnthropicProvider {
             .map_err(|e| anyhow!("Failed to create HTTP client: {}", e))?;
 
         let model = model.unwrap_or_else(|| "claude-3-5-sonnet-20241022".to_string());
+        let base_url = base_url.unwrap_or_else(|| ANTHROPIC_API_URL.to_string());
 
-        debug!("Initialized Anthropic provider '{}' with model: {}", name, model);
+        debug!("Initialized Anthropic provider '{}' with model: {} and base_url: {}", name, model, base_url);
 
         Ok(Self {
             client,
             name,
             api_key,
             model,
+            base_url,
             max_tokens: max_tokens.unwrap_or(4096),
             temperature: temperature.unwrap_or(0.1),
             cache_config,
             enable_1m_context: enable_1m_context.unwrap_or(false),
             thinking_budget_tokens,
+            use_bearer_auth: false, // Default to standard Anthropic auth
         })
     }
 
     fn create_request_builder(&self, streaming: bool) -> RequestBuilder {
         let mut builder = self
             .client
-            .post(ANTHROPIC_API_URL)
-            .header("x-api-key", &self.api_key)
-            .header("anthropic-version", ANTHROPIC_VERSION)
+            .post(&self.base_url)
             .header("content-type", "application/json");
+
+        // Use either Bearer token auth or x-api-key based on configuration
+        if self.use_bearer_auth {
+            builder = builder.header("Authorization", format!("Bearer {}", self.api_key));
+        } else {
+            builder = builder.header("x-api-key", &self.api_key);
+            builder = builder.header("anthropic-version", ANTHROPIC_VERSION);
+        }
 
         if self.enable_1m_context {
             builder = builder.header("anthropic-beta", "context-1m-2025-08-07");
@@ -574,13 +642,20 @@ impl AnthropicProvider {
 
                                             // Send the complete tool call
                                             if !current_tool_calls.is_empty() {
+                                                debug!("ANTHROPIC_STREAM: Sending tool chunk with {} tool calls", current_tool_calls.len());
+                                                for (i, tool) in current_tool_calls.iter().enumerate() {
+                                                    debug!("ANTHROPIC_STREAM: Tool {} - id: {}, name: {}, args: {:?}", i, tool.id, tool.tool, tool.args);
+                                                }
                                                 let chunk = make_tool_chunk(current_tool_calls.clone());
+                                                debug!("ANTHROPIC_STREAM: Tool chunk created - tool_calls: {:?}, content_len={}", chunk.tool_calls.is_some(), chunk.content.len());
                                                 if tx.send(Ok(chunk)).await.is_err() {
                                                     debug!("Receiver dropped, stopping stream");
                                                     return accumulated_usage;
                                                 }
                                                 // Clear tool calls after sending to prevent duplicates at message_stop
                                                 current_tool_calls.clear();
+                                            } else {
+                                                debug!("ANTHROPIC_STREAM: No tool calls to send");
                                             }
                                         }
                                         "message_stop" => {
@@ -682,16 +757,39 @@ impl LLMProvider for AnthropicProvider {
             .await
             .map_err(|e| anyhow!("Failed to parse Anthropic response: {}", e))?;
 
-        // Extract text content from the response
-        let content = anthropic_response
-            .content
-            .iter()
-            .filter_map(|c| match c {
-                AnthropicContent::Text { text, .. } => Some(text.as_str()),
-                _ => None,
-            })
-            .collect::<Vec<_>>()
-            .join("");
+        // Extract text content and tool calls from the response
+        let mut content_parts = Vec::new();
+        let mut tool_calls_from_response = Vec::new();
+
+        for content_item in &anthropic_response.content {
+            match content_item {
+                AnthropicContent::Text { text, .. } => {
+                    content_parts.push(text.as_str());
+                }
+                AnthropicContent::ToolUse { id, name, input } => {
+                    debug!("ANTHROPIC_COMPLETE: Found tool use - id: {}, name: {}, input: {:?}", id, name, input);
+                    let tool_call = ToolCall {
+                        id: id.clone(),
+                        tool: name.clone(),
+                        args: input.clone(),
+                    };
+                    tool_calls_from_response.push(tool_call);
+                }
+                AnthropicContent::Thinking { thinking, .. } => {
+                    // Include thinking content in the response
+                    content_parts.push(thinking.as_str());
+                }
+                AnthropicContent::Image { .. } => {
+                    // Skip image content for now
+                    debug!("ANTHROPIC_COMPLETE: Skipping image content");
+                }
+            }
+        }
+
+        let content = content_parts.join("");
+        
+        debug!("ANTHROPIC_COMPLETE: Extracted content length: {}", content.len());
+        debug!("ANTHROPIC_COMPLETE: Found {} tool calls", tool_calls_from_response.len());
 
         let usage = Usage {
             prompt_tokens: anthropic_response.usage.input_tokens,
@@ -701,12 +799,28 @@ impl LLMProvider for AnthropicProvider {
         };
 
         debug!(
-            "Anthropic completion successful: {} tokens generated",
-            usage.completion_tokens
+            "Anthropic completion successful: {} tokens generated, {} tool calls found",
+            usage.completion_tokens,
+            tool_calls_from_response.len()
         );
 
+        // For non-streaming mode, we need to embed tool calls in the content
+        // since CompletionResponse doesn't have a tool_calls field
+        let final_content = if !tool_calls_from_response.is_empty() {
+            debug!("ANTHROPIC_COMPLETE: Embedding {} tool calls in content for non-streaming mode", tool_calls_from_response.len());
+            let mut result = content;
+            for tool_call in tool_calls_from_response {
+                result.push_str(&format!("\n{{\"tool\": \"{}\", \"args\": {}}}\n", 
+                    tool_call.tool, 
+                    serde_json::to_string(&tool_call.args).unwrap_or_else(|_| "{}".to_string())));
+            }
+            result
+        } else {
+            content
+        };
+
         Ok(CompletionResponse {
-            content,
+            content: final_content,
             usage,
             model: anthropic_response.model,
         })
@@ -949,7 +1063,7 @@ mod tests {
     #[test]
     fn test_message_conversion() {
         let provider =
-            AnthropicProvider::new("test-key".to_string(), None, None, None, None, None, None).unwrap();
+            AnthropicProvider::new("test-key".to_string(), None, None, None, None, None, None, None).unwrap();
 
         let messages = vec![
             Message::new(
@@ -973,6 +1087,7 @@ mod tests {
         let provider = AnthropicProvider::new(
             "test-key".to_string(),
             Some("claude-3-haiku-20240307".to_string()),
+            None,
             Some(1000),
             Some(0.5),
             None,
@@ -998,7 +1113,7 @@ mod tests {
     #[test]
     fn test_tool_conversion() {
         let provider =
-            AnthropicProvider::new("test-key".to_string(), None, None, None, None, None, None).unwrap();
+            AnthropicProvider::new("test-key".to_string(), None, None, None, None, None, None, None).unwrap();
 
         let tools = vec![Tool {
             name: "get_weather".to_string(),
@@ -1031,7 +1146,7 @@ mod tests {
     #[test]
     fn test_cache_control_serialization() {
         let provider =
-            AnthropicProvider::new("test-key".to_string(), None, None, None, None, None, None).unwrap();
+            AnthropicProvider::new("test-key".to_string(), None, None, None, None, None, None, None).unwrap();
 
         // Test message WITHOUT cache_control
         let messages_without = vec![Message::new(MessageRole::User, "Hello".to_string())];
@@ -1080,6 +1195,7 @@ mod tests {
         let provider_without = AnthropicProvider::new(
             "test-key".to_string(),
             Some("claude-sonnet-4-5".to_string()),
+            None,
             Some(1000),
             Some(0.5),
             None,
@@ -1100,6 +1216,7 @@ mod tests {
         let provider_with = AnthropicProvider::new(
             "test-key".to_string(),
             Some("claude-sonnet-4-5".to_string()),
+            None,
             Some(20000),  // Sufficient for thinking budget
             Some(0.5),
             None,
@@ -1130,6 +1247,7 @@ mod tests {
         let provider = AnthropicProvider::new(
             "test-key".to_string(),
             Some("claude-sonnet-4-5".to_string()),
+            None,
             Some(20000),
             Some(0.5),
             None,

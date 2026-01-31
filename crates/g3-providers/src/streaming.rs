@@ -4,6 +4,7 @@
 //! for handling Server-Sent Events (SSE) streaming responses.
 
 use crate::{CompletionChunk, ToolCall, Usage};
+use tracing::debug;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UTF-8 Streaming
@@ -76,10 +77,16 @@ pub fn make_text_chunk(content: String) -> CompletionChunk {
 
 /// Create a tool calls chunk (not finished).
 pub fn make_tool_chunk(tool_calls: Vec<ToolCall>) -> CompletionChunk {
-    CompletionChunk {
+    debug!("STREAMING: make_tool_chunk called with {} tool calls", tool_calls.len());
+    for (i, tool) in tool_calls.iter().enumerate() {
+        debug!("STREAMING: Tool {} - id: {}, tool: {}, args: {:?}", i, tool.id, tool.tool, tool.args);
+    }
+    let chunk = CompletionChunk {
         content: String::new(),
         finished: false,
         usage: None,
         tool_calls: Some(tool_calls),
-    }
+    };
+    debug!("STREAMING: Created tool chunk with tool_calls: {:?}", chunk.tool_calls.is_some());
+    chunk
 }

@@ -10,6 +10,7 @@ pub struct Config {
     pub agent: AgentConfig,
     pub computer_control: ComputerControlConfig,
     pub webdriver: WebDriverConfig,
+
 }
 
 /// Provider configuration with named configs per provider type
@@ -61,11 +62,14 @@ pub struct OpenAIConfig {
 pub struct AnthropicConfig {
     pub api_key: String,
     pub model: String,
+    pub base_url: Option<String>,
     pub max_tokens: Option<u32>,
     pub temperature: Option<f32>,
     pub cache_config: Option<String>,
     pub enable_1m_context: Option<bool>,
     pub thinking_budget_tokens: Option<u32>,
+    #[serde(default)]
+    pub use_bearer_auth: Option<bool>, // Use Bearer token authentication instead of x-api-key
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -138,6 +142,8 @@ pub struct WebDriverConfig {
     pub browser: WebDriverBrowser,
 }
 
+
+
 impl Default for WebDriverConfig {
     fn default() -> Self {
         Self {
@@ -200,6 +206,7 @@ impl Default for Config {
             },
             computer_control: ComputerControlConfig::default(),
             webdriver: WebDriverConfig::default(),
+
         }
     }
 }
@@ -579,6 +586,8 @@ impl Config {
     pub fn get_embedded_config(&self, name: &str) -> Option<&EmbeddedConfig> {
         self.providers.embedded.get(name)
     }
+
+
 
     /// Get the current default provider's config
     pub fn get_default_provider_config(&self) -> Result<ProviderConfigRef<'_>> {

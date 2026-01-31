@@ -1,0 +1,39 @@
+🚀 Starting comprehensive E2E test for G3 tool execution...
+Test 1: Simple shell command execution
+Testing basic tool execution with localhost:9000...
+Test 2: Multiple tool calls in sequence
+Test 3: Complex deployment debugging scenario
+📊 Analyzing test results...
+=== test_results/test1_simple.log ===
+✅ TOOL EXECUTION DETECTED
+⚠️  THINKING MODE DETECTED
+--- Relevant output ---
+The user wants me to execute a shell command [38;2;216;177;114mls -la[0m to verify that tool execution is working. This is a simple verification task - I need to use the shell tool to run the command and see the output.
+I should call the shell tool with the [38;2;216;177;114mls -la[0m command.
+<invoke name="shell">
+
+=== test_results/test2_multiple.log ===
+✅ TOOL EXECUTION DETECTED
+⚠️  THINKING MODE DETECTED
+--- Relevant output ---
+1. Use shell to list files in current directory
+2. Use shell to check if README.md exists (or just try to read it)
+3. Use shell to show first 10 lines of README.md if it exists
+<tool name="shell"
+
+=== test_results/test3_complex.log ===
+✅ TOOL EXECUTION DETECTED
+⚠️  THINKING MODE DETECTED
+--- Relevant output ---
+<invoke name="todo_write">
+<parameter name="args": {"content": "- [ ] Explore current directory structure\n- [ ] Search for WebSocket-related configuration files\n- [ ] Look for Docker deployment files (docker-compose, Dockerfile)\n- [ ] Check for environment configuration (.env files, config files)\n- [ ] Examine web server configuration\n- [ ] Analyze WebSocket-specific settings\n- [ ] Generate debugging report with findings"}}
+
+📋 TEST SUMMARY
+==================
+Tests run: 3
+Config used: test_localhost_config.toml
+Provider: localhost:9000 (minimax via load balancer)
+
+Tool execution detected in: 3/3 tests
+Thinking mode detected in: 3/3 tests
+✅ OVERALL RESULT: TOOL EXECUTION IS WORKING

@@ -1,0 +1,203 @@
+🚀 Starting Parallel Testing Across Multiple Configurations
+================================================================================
+
+============================================================
+🚀 Testing configuration: localhost_loadbalancer
+Description: Local load balancer (current setup)
+============================================================
+🧪 Testing localhost_loadbalancer: List files
+
+============================================================
+🚀 Testing configuration: minimax_direct
+Description: MiniMax direct API
+============================================================
+🧪 Testing minimax_direct: List files
+
+============================================================
+🚀 Testing configuration: kimi_direct
+Description: Kimi direct API
+============================================================
+🧪 Testing kimi_direct: List files
+
+============================================================
+🚀 Testing configuration: anthropic_direct
+Description: Anthropic direct API
+============================================================
+🧪 Testing anthropic_direct: List files
+✅ anthropic_direct: List files - FAILED
+🧪 Testing anthropic_direct: Show current directory
+✅ anthropic_direct: Show current directory - FAILED
+🧪 Testing anthropic_direct: Check file contents of README.md
+✅ anthropic_direct: Check file contents of README.md - FAILED
+🧪 Testing anthropic_direct: List backend directory
+✅ minimax_direct: List files - FAILED
+🧪 Testing minimax_direct: Show current directory
+✅ minimax_direct: Show current directory - FAILED
+🧪 Testing minimax_direct: Check file contents of README.md
+✅ anthropic_direct: List backend directory - FAILED
+🧪 Testing anthropic_direct: What files are here?
+✅ kimi_direct: List files - FAILED
+🧪 Testing kimi_direct: Show current directory
+✅ minimax_direct: Check file contents of README.md - FAILED
+🧪 Testing minimax_direct: List backend directory
+✅ anthropic_direct: What files are here? - FAILED
+🧪 Testing anthropic_direct: Look at backend directory
+✅ anthropic_direct: Look at backend directory - FAILED
+🧪 Testing anthropic_direct: Check deployment folder
+✅ anthropic_direct: Check deployment folder - FAILED
+🧪 Testing anthropic_direct: Show src contents
+✅ minimax_direct: List backend directory - FAILED
+🧪 Testing minimax_direct: What files are here?
+✅ kimi_direct: Show current directory - FAILED
+🧪 Testing kimi_direct: Check file contents of README.md
+✅ anthropic_direct: Show src contents - FAILED
+🧪 Testing anthropic_direct: List all files with details
+✅ anthropic_direct: List all files with details - FAILED
+🧪 Testing anthropic_direct: Find Python files in current directory
+✅ minimax_direct: What files are here? - FAILED
+🧪 Testing minimax_direct: Look at backend directory
+✅ anthropic_direct: Find Python files in current directory - FAILED
+🧪 Testing anthropic_direct: Echo hello world
+✅ anthropic_direct: Echo hello world - FAILED
+🧪 Testing anthropic_direct: Check disk usage
+✅ kimi_direct: Check file contents of README.md - FAILED
+🧪 Testing kimi_direct: List backend directory
+✅ anthropic_direct: Check disk usage - FAILED
+🧪 Testing anthropic_direct: Backend
+✅ minimax_direct: Look at backend directory - FAILED
+🧪 Testing minimax_direct: Check deployment folder
+✅ anthropic_direct: Backend - FAILED
+🧪 Testing anthropic_direct: Frontend check
+✅ anthropic_direct: Frontend check - FAILED
+🧪 Testing anthropic_direct: Test directory
+✅ minimax_direct: Check deployment folder - FAILED
+🧪 Testing minimax_direct: Show src contents
+✅ anthropic_direct: Test directory - FAILED
+🧪 Testing anthropic_direct: Use shell to list files
+✅ localhost_loadbalancer: List files - FAILED
+🧪 Testing localhost_loadbalancer: Show current directory
+✅ localhost_loadbalancer: Show current directory - FAILED
+🧪 Testing localhost_loadbalancer: Check file contents of README.md
+✅ anthropic_direct: Use shell to list files - FAILED
+🧪 Testing anthropic_direct: Execute shell command: ls -la
+✅ minimax_direct: Show src contents - FAILED
+🧪 Testing minimax_direct: List all files with details
+✅ kimi_direct: List backend directory - FAILED
+🧪 Testing kimi_direct: What files are here?
+✅ anthropic_direct: Execute shell command: ls -la - FAILED
+🧪 Testing anthropic_direct: Run shell with ls command
+✅ anthropic_direct: Run shell with ls command - FAILED
+🧪 Testing anthropic_direct: Shell command: find . -name '*.py'
+✅ minimax_direct: List all files with details - FAILED
+🧪 Testing minimax_direct: Find Python files in current directory
+✅ anthropic_direct: Shell command: find . -name '*.py' - FAILED
+
+📊 anthropic_direct Summary:
+Total tests: 19
+Successful: 0
+Failed: 19
+Missing arg errors: 0
+Success rate: 0.0%
+✅ kimi_direct: What files are here? - FAILED
+🧪 Testing kimi_direct: Look at backend directory
+✅ minimax_direct: Find Python files in current directory - FAILED
+🧪 Testing minimax_direct: Echo hello world
+✅ minimax_direct: Echo hello world - FAILED
+🧪 Testing minimax_direct: Check disk usage
+✅ minimax_direct: Check disk usage - FAILED
+🧪 Testing minimax_direct: Backend
+✅ kimi_direct: Look at backend directory - FAILED
+🧪 Testing kimi_direct: Check deployment folder
+✅ minimax_direct: Backend - FAILED
+🧪 Testing minimax_direct: Frontend check
+✅ minimax_direct: Frontend check - FAILED
+🧪 Testing minimax_direct: Test directory
+✅ minimax_direct: Test directory - FAILED
+🧪 Testing minimax_direct: Use shell to list files
+✅ kimi_direct: Check deployment folder - FAILED
+🧪 Testing kimi_direct: Show src contents
+✅ minimax_direct: Use shell to list files - FAILED
+🧪 Testing minimax_direct: Execute shell command: ls -la
+✅ minimax_direct: Execute shell command: ls -la - FAILED
+🧪 Testing minimax_direct: Run shell with ls command
+✅ minimax_direct: Run shell with ls command - FAILED
+🧪 Testing minimax_direct: Shell command: find . -name '*.py'
+✅ kimi_direct: Show src contents - FAILED
+🧪 Testing kimi_direct: List all files with details
+✅ minimax_direct: Shell command: find . -name '*.py' - FAILED
+
+📊 minimax_direct Summary:
+Total tests: 19
+Successful: 0
+Failed: 19
+Missing arg errors: 0
+Success rate: 0.0%
+✅ localhost_loadbalancer: Check file contents of README.md - FAILED
+🧪 Testing localhost_loadbalancer: List backend directory
+✅ localhost_loadbalancer: List backend directory - FAILED
+🧪 Testing localhost_loadbalancer: What files are here?
+✅ kimi_direct: List all files with details - FAILED
+🧪 Testing kimi_direct: Find Python files in current directory
+✅ kimi_direct: Find Python files in current directory - FAILED
+🧪 Testing kimi_direct: Echo hello world
+✅ kimi_direct: Echo hello world - FAILED
+🧪 Testing kimi_direct: Check disk usage
+✅ kimi_direct: Check disk usage - FAILED
+🧪 Testing kimi_direct: Backend
+✅ kimi_direct: Backend - FAILED
+🧪 Testing kimi_direct: Frontend check
+✅ kimi_direct: Frontend check - FAILED
+🧪 Testing kimi_direct: Test directory
+✅ kimi_direct: Test directory - FAILED
+🧪 Testing kimi_direct: Use shell to list files
+✅ kimi_direct: Use shell to list files - FAILED
+🧪 Testing kimi_direct: Execute shell command: ls -la
+🧪 Testing localhost_loadbalancer: Look at backend directory
+✅ kimi_direct: Execute shell command: ls -la - FAILED
+🧪 Testing kimi_direct: Run shell with ls command
+✅ kimi_direct: Run shell with ls command - FAILED
+🧪 Testing kimi_direct: Shell command: find . -name '*.py'
+✅ kimi_direct: Shell command: find . -name '*.py' - FAILED
+
+📊 kimi_direct Summary:
+Total tests: 19
+Successful: 0
+Failed: 19
+Missing arg errors: 0
+Success rate: 0.0%
+✅ localhost_loadbalancer: Look at backend directory - FAILED
+🧪 Testing localhost_loadbalancer: Check deployment folder
+🧪 Testing localhost_loadbalancer: Show src contents
+✅ localhost_loadbalancer: Show src contents - FAILED
+🧪 Testing localhost_loadbalancer: List all files with details
+🧪 Testing localhost_loadbalancer: Find Python files in current directory
+✅ localhost_loadbalancer: Find Python files in current directory - FAILED
+🧪 Testing localhost_loadbalancer: Echo hello world
+✅ localhost_loadbalancer: Echo hello world - FAILED
+🧪 Testing localhost_loadbalancer: Check disk usage
+✅ localhost_loadbalancer: Check disk usage - FAILED
+🧪 Testing localhost_loadbalancer: Backend
+✅ localhost_loadbalancer: Backend - FAILED
+🧪 Testing localhost_loadbalancer: Frontend check
+✅ localhost_loadbalancer: Frontend check - FAILED
+🧪 Testing localhost_loadbalancer: Test directory
+✅ localhost_loadbalancer: Test directory - FAILED
+🧪 Testing localhost_loadbalancer: Use shell to list files
+✅ localhost_loadbalancer: Use shell to list files - FAILED
+🧪 Testing localhost_loadbalancer: Execute shell command: ls -la
+✅ localhost_loadbalancer: Execute shell command: ls -la - FAILED
+🧪 Testing localhost_loadbalancer: Run shell with ls command
+🧪 Testing localhost_loadbalancer: Shell command: find . -name '*.py'
+✅ localhost_loadbalancer: Shell command: find . -name '*.py' - FAILED
+
+📊 localhost_loadbalancer Summary:
+Total tests: 19
+Successful: 0
+Failed: 19
+Missing arg errors: 6
+Success rate: 0.0%
+
+📊 Report saved to: /home/clauderun/g3-vps-friendly/parallel_test_report.md
+📈 Detailed results saved to: /home/clauderun/g3-vps-friendly/parallel_test_results.json
+
+🎯 Overall Success Rate: 0.0%

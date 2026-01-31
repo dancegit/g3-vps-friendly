@@ -1,0 +1,35 @@
+   Compiling g3-providers v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-providers)
+warning: unused import: `bytes::Bytes`
+ --> crates/g3-providers/src/anthropic_compatible.rs:7:5
+  |
+7 | use bytes::Bytes;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `error`
+  --> crates/g3-providers/src/anthropic_compatible.rs:14:22
+   |
+14 | use tracing::{debug, error};
+   |                      ^^^^^
+
+warning: unused imports: `decode_utf8_streaming` and `make_tool_chunk`
+  --> crates/g3-providers/src/anthropic_compatible.rs:19:17
+   |
+19 |     streaming::{decode_utf8_streaming, make_final_chunk, make_text_chunk, make_tool_chunk},
+   |                 ^^^^^^^^^^^^^^^^^^^^^                                     ^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `Tool` found for enum `MessageRole` in the current scope
+   --> crates/g3-providers/src/anthropic_compatible.rs:97:30
+    |
+ 97 |                 MessageRole::Tool => {
+    |                              ^^^^ variant or associated item not found in `MessageRole`
+    |
+   ::: crates/g3-providers/src/lib.rs:103:1
+    |
+103 | pub enum MessageRole {
+    | -------------------- variant or associated item `Tool` not found for this enum
+
+For more information about this error, try `rustc --explain E0599`.
+warning: `g3-providers` (lib) generated 3 warnings
+error: could not compile `g3-providers` (lib) due to 1 previous error; 3 warnings emitted

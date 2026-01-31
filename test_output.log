@@ -1,0 +1,13 @@
+<think>
+The user wants me to execute the command "echo test". This is a simple shell command that will print "test" to the console. I should use the shell tool to execute this command.
+</think>
+
+I'll execute the [38;2;216;177;114mecho test[0m command for you.
+<think>
+The user wants me to execute the command "echo test". This is a simple shell command that will print "test" to the console. I should use the shell tool to execute this command.
+</think>
+
+I'll execute the `echo test` command for you.
+
+
+⏱️ 2.5s | 💭 2.5s  [2m6%[0m

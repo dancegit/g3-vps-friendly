@@ -1,0 +1,80 @@
+# FINAL CORRECTED CONFIGURATION - Based on API format discovery
+# MiniMax uses OpenAI-compatible format, not Anthropic format!
+
+[providers]
+# Default provider - MiniMax M2 direct (fast and reliable)
+default_provider = "openai_compatible.minimax_gmail"
+
+# MiniMax Gmail subscription - Primary player role
+[providers.openai_compatible.minimax_gmail]
+model = "minimax-m2"
+base_url = "https://api.minimax.io/v1"  # OpenAI-compatible endpoint
+api_key = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJwZXIgc3VuZGJlcmciLCJVc2VyTmFtZSI6InBlciBzdW5kYmVyZyIsIkFjY291bnQiOiIiLCJTdWJqZWN0SUQiOiIxOTUxOTM5MjI0NTkyNzE2MTU3IiwiUGhvbmUiOiIiLCJHcm91cElEIjoiMTk1MTkzOTIyNDU4ODUyMTg1MyIsIlBhZ2VOYW1lIjoiIiwiTWFpbCI6InBlci5tYXJ0aW4uc3VuZGJlcmdAZ21haWwuY29tIiwiQ3JlYXRlVGltZSI6IjIwMjUtMTEtMTIgMTI6MDk6MzYiLCJUb2tlblR5cGUiOjQsImlzcyI6Im1pbmltYXgifQ.EzTj3ItbOoAdiOyqV85UA3eH_lx1-NlQyHEI_BSvzi0umVxJbfLpwhAtXNpWxifZ5rjw_VYKxHb09z53k-MIzLzts6ODdC6FPw-eDp-B2V5sSArHHxz1DJf_EDKWNqYPea3ydUVpn3wHaOBQeVqqN-0-6CxU1IZ9O4HYnsAriiDzGbH6SkpYJFMr2PSPUHMy3t7THOEr_qMzpkX5dE-loh4SWeNRn72jJoaIMHAMFsE59B7q2iX7LZvmBeQpV7pzk-5QKGJIQrjrYZyAdCWC-f2Jrs6DjtjN4TfT2ZvLX_9vxgUntGNCnxFCdZ3wseIQiKcsv3NqrOt4rKg4-Nh1Hw"
+max_tokens = 64000
+temperature = 0.3
+
+# MiniMax GitHub subscription - Backup player role
+[providers.openai_compatible.minimax_github]
+model = "minimax-m2"
+base_url = "https://api.minimax.io/v1"  # OpenAI-compatible endpoint
+api_key = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJQZXIgTWFydGluIFN1bmRiZXJnIiwiVXNlck5hbWUiOiJwZXJzb25hbCBhcHAgZGV2IiwiQWNjb3VudCI6IiIsIlN1YmplY3RJRCI6IjE5ODk3NDI3NzkwNDI4OTQ1NTMiLCJQaG9uZSI6IiIsIkdyb3VwSUQiOiIxOTg5NzQyNzc5MDM0NTEwMDQxIiwiUGFnZU5hbWUiOiIiLCJNYWlsIjoid2ViaW52ZW50aW9uc0Bwcm90b25tYWlsLmNvbSIsIkNyZWF0ZVRpbWUiOiIyMDI1LTExLTE2IDAyOjA0OjI4IiwiVG9rZW5UeXBlIjo0LCJpc3MiOiJtaW5pbWF4In0.J_Aeico2d8AFhDHpLXqkJrStbZsu-dmQvtpBqzbmOmBVqKPttSNRB0Nk4mUlcnJCZL6oIeeVpcynf1Gby_NjpJ2AlbZ-DJ_LhcfFpCkBNzJEpSaYBGex7mhklTUn_XOFKPAh5fkJ9Gu6yTxgbbaOUCeXE9mVBNnTUkntAJK-U3JjLpIeWZC7G3IRBgk4FqTjrM_AIUnSjVFZwYQRlD8LxNYF8AAcaMl7jQ6P0UOaI2T5w-e-nBUTSrRPRhDTMygfB0JFJsmzjpApr5912Cp3M7nfU2vtQ08c3N7wxcX5bdX2RhCYAfOkbU6eqxympu5W7XO45YZQ4kJ6EJW2UItFPA"
+max_tokens = 64000
+temperature = 0.3
+
+# Kimi thinking specialist - Coach/Planner roles (complex reasoning)
+[providers.anthropic.kimi_thinking]
+model = "kimi-for-coding"
+base_url = "https://api.kimi.com/coding/v1/messages"  # Anthropic-compatible endpoint
+use_bearer_auth = true
+api_key = "sk-kimi-cWDcxzAMBNUdM9T99OjCVNAInNvJmfYkyUbFx6wA9L5HhkN2ajha7RT7sSYlHmIZ"
+max_tokens = 128000
+temperature = 0.2
+
+[agent]
+name = "multi-role-direct-agent"
+provider = "openai_compatible.minimax_gmail"  # Default player role (OpenAI format)
+fallback_default_max_tokens = 8192
+enable_streaming = true
+timeout_seconds = 60
+max_retry_attempts = 3
+autonomous_max_retry_attempts = 6
+allow_multiple_tool_calls = true
+auto_compact = true
+
+# Coach/Planner role configuration (uses Kimi for thinking/complex reasoning)
+[agent.coach]
+provider = "anthropic.kimi_thinking"
+max_tokens = 128000
+temperature = 0.2
+
+# Player/Worker role configuration (uses MiniMax for speed and reliability)
+[agent.player]
+provider = "openai_compatible.minimax_gmail"
+max_tokens = 64000
+temperature = 0.3
+
+[computer_control]
+enabled = false
+require_confirmation = true
+max_actions_per_second = 5
+
+[webdriver]
+enabled = true
+browser = "chrome-headless"
+safari_port = 4444
+chrome_port = 9515
+
+[macax]
+enabled = false
+
+[ui]
+machine_mode = true
+
+# Provider Selection Strategy (based on providers.json and API format discovery):
+# 1. MiniMax M2 (Gmail) - Primary: Uses OpenAI-compatible format, good for player/agent roles
+# 2. MiniMax M2 (GitHub) - Backup: Same performance, different account
+# 3. Kimi Thinking - Specialist: Uses Anthropic format, complex reasoning, coach/planner roles
+# 4. All direct APIs bypass load balancer issues identified in testing
+# 5. FIXED: Used correct provider types based on API format:
+#    - MiniMax: openai_compatible provider (not anthropic)
+#    - Kimi: anthropic provider (correct format)

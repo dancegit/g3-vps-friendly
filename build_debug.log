@@ -1,0 +1,21 @@
+   Compiling g3-providers v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-providers)
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+  --> crates/g3-providers/src/streaming.rs:79:5
+   |
+79 |     log::debug!("STREAMING: make_tool_chunk called with {} tool calls", tool_calls.len());
+   |     ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+  --> crates/g3-providers/src/streaming.rs:81:9
+   |
+81 |         log::debug!("STREAMING: Tool {} - id: {}, tool: {}, args: {:?}", i, tool.id, tool.tool, tool.args);
+   |         ^^^ use of unresolved module or unlinked crate `log`
+
+error[E0433]: failed to resolve: use of unresolved module or unlinked crate `log`
+  --> crates/g3-providers/src/streaming.rs:89:5
+   |
+89 |     log::debug!("STREAMING: Created tool chunk with tool_calls: {:?}", chunk.tool_calls.is_some());
+   |     ^^^ use of unresolved module or unlinked crate `log`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `g3-providers` (lib) due to 3 previous errors

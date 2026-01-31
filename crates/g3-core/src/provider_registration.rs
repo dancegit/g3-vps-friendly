@@ -145,16 +145,33 @@ fn register_anthropic_providers(
 ) -> Result<()> {
     for (name, anthropic_config) in &config.providers.anthropic {
         if should_register(providers_to_register, "anthropic", name) {
-            let anthropic_provider = g3_providers::AnthropicProvider::new_with_name(
-                format!("anthropic.{}", name),
-                anthropic_config.api_key.clone(),
-                Some(anthropic_config.model.clone()),
-                anthropic_config.max_tokens,
-                anthropic_config.temperature,
-                anthropic_config.cache_config.clone(),
-                anthropic_config.enable_1m_context,
-                anthropic_config.thinking_budget_tokens,
-            )?;
+            let anthropic_provider = if anthropic_config.use_bearer_auth.unwrap_or(false) {
+                // Use Bearer token authentication for load balancers
+                g3_providers::AnthropicProvider::new_with_name_and_bearer_auth(
+                    format!("anthropic.{}", name),
+                    anthropic_config.api_key.clone(),
+                    Some(anthropic_config.model.clone()),
+                    anthropic_config.base_url.clone(),
+                    anthropic_config.max_tokens,
+                    anthropic_config.temperature,
+                    anthropic_config.cache_config.clone(),
+                    anthropic_config.enable_1m_context,
+                    anthropic_config.thinking_budget_tokens,
+                )?
+            } else {
+                // Use standard x-api-key authentication
+                g3_providers::AnthropicProvider::new_with_name(
+                    format!("anthropic.{}", name),
+                    anthropic_config.api_key.clone(),
+                    Some(anthropic_config.model.clone()),
+                    anthropic_config.base_url.clone(),
+                    anthropic_config.max_tokens,
+                    anthropic_config.temperature,
+                    anthropic_config.cache_config.clone(),
+                    anthropic_config.enable_1m_context,
+                    anthropic_config.thinking_budget_tokens,
+                )?
+            };
             registry.register(anthropic_provider);
         }
     }

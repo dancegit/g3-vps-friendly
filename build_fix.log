@@ -1,0 +1,24 @@
+   Compiling g3-providers v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-providers)
+error[E0004]: non-exhaustive patterns: `&AnthropicContent::Image { .. }` not covered
+   --> crates/g3-providers/src/anthropic.rs:763:19
+    |
+763 |             match content_item {
+    |                   ^^^^^^^^^^^^ pattern `&AnthropicContent::Image { .. }` not covered
+    |
+note: `AnthropicContent` defined here
+   --> crates/g3-providers/src/anthropic.rs:969:6
+    |
+969 | enum AnthropicContent {
+    |      ^^^^^^^^^^^^^^^^
+...
+989 |     Image {
+    |     ----- not covered
+    = note: the matched value is of type `&AnthropicContent`
+help: ensure that all possible cases are being handled by adding a match arm with a wildcard pattern or an explicit pattern as shown
+    |
+779 ~                 },
+780 +                 &AnthropicContent::Image { .. } => todo!()
+    |
+
+For more information about this error, try `rustc --explain E0004`.
+error: could not compile `g3-providers` (lib) due to 1 previous error

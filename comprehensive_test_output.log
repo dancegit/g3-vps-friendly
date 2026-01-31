@@ -1,0 +1,51 @@
+🚀 Starting comprehensive E2E test suite for G3 tool execution fix...
+Using binary: ~/.local/bin/g3
+Config: test_localhost_config.toml
+Provider: localhost:9000 (minimax via load balancer)
+
+Test 1: Simple shell command execution
+Test 2: Multiple tool calls
+Test 3: Complex deployment debugging scenario
+Test 4: File operations and directory exploration
+Test 5: Original Dokploy WebSocket debugging scenario
+
+🧪 All tests started!
+Test PIDs: 901202, 901399, 901475, 901545, 901738
+Waiting for tests to complete...
+
+✅ All tests completed!
+Analyzing results...
+📊 COMPREHENSIVE E2E TEST RESULTS
+==================================
+Timestamp: 20260109_130222
+Binary: /home/clauderun/.local/bin/g3
+Config: test_localhost_config.toml
+Provider: localhost:9000 (minimax via load balancer)
+
+=== Test 1: Simple Shell Command ===
+❌ Test file not found: e2e_test_results/test1_20260109_130222.log
+
+=== Test 2: Multiple Tool Calls ===
+❌ Test file not found: e2e_test_results/test2_20260109_130222.log
+
+=== Test 3: Complex Scenario ===
+❌ Test file not found: e2e_test_results/test3_20260109_130222.log
+
+=== Test 4: File Operations ===
+❌ Test file not found: e2e_test_results/test4_20260109_130222.log
+
+=== Test 5: Dokploy WebSocket Debugging ===
+❌ Test file not found: e2e_test_results/test5_20260109_130222.log
+
+📋 OVERALL SUMMARY
+==================
+Total tests: 5
+Tests with tool execution: 0/5
+Tests with final_output: 0/5
+Tests with return code 0: 0/5
+
+❌ OVERALL RESULT: NO TOOL EXECUTION DETECTED
+The fix may not be working as expected.
+
+📁 Test results saved to: e2e_test_results/
+📄 Summary saved to: e2e_test_results/summary_20260109_130222.txt

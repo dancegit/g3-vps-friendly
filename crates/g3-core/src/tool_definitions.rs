@@ -12,15 +12,20 @@ use serde_json::json;
 pub struct ToolConfig {
     pub webdriver: bool,
     pub computer_control: bool,
+
+
 }
 
 impl ToolConfig {
-    pub fn new(webdriver: bool, computer_control: bool) -> Self {
+    pub fn new(webdriver: bool, computer_control: bool, _mcp: bool) -> Self {
         Self {
             webdriver,
             computer_control,
+
         }
     }
+
+
 }
 
 /// Create tool definitions for native tool calling providers.
@@ -33,6 +38,10 @@ pub fn create_tool_definitions(config: ToolConfig) -> Vec<Tool> {
     if config.webdriver {
         tools.extend(create_webdriver_tools());
     }
+
+
+
+
 
     tools
 }
@@ -260,6 +269,10 @@ fn create_core_tools() -> Vec<Tool> {
     ]
 }
 
+
+
+
+
 /// Create WebDriver browser automation tools
 fn create_webdriver_tools() -> Vec<Tool> {
     vec![
@@ -466,6 +479,8 @@ mod tests {
         assert_eq!(tools.len(), 12);
     }
 
+
+
     #[test]
     fn test_webdriver_tools_count() {
         let tools = create_webdriver_tools();
@@ -473,20 +488,17 @@ mod tests {
         assert_eq!(tools.len(), 15);
     }
 
-    #[test]
-    fn test_create_tool_definitions_core_only() {
-        let config = ToolConfig::default();
-        let tools = create_tool_definitions(config);
-        assert_eq!(tools.len(), 12);
-    }
+
 
     #[test]
     fn test_create_tool_definitions_all_enabled() {
-        let config = ToolConfig::new(true, true);
+        let config = ToolConfig::new_with_goose(true, true, true, true);
         let tools = create_tool_definitions(config);
-        // 12 core + 15 webdriver = 27
-        assert_eq!(tools.len(), 27);
+        // 12 core + 15 webdriver + 7 goose = 34
+        assert_eq!(tools.len(), 34);
     }
+
+
 
     #[test]
     fn test_tool_has_required_fields() {

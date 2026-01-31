@@ -1,0 +1,29 @@
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T13:10:59.755858Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: '<think>
+The'
+<think>
+The🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: ' user wants me to execute a simple shell command: "echo XML_PARSING_TEST". This is a straightforward'
+ user wants me to execute a simple shell command: "echo XML_PARSING_TEST". This is a straightforward task that I can complete with a single tool call to the shell.
+
+I'll🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: ' use the shell tool to execute this command.
+</think>
+
+I'll execute the command for you.
+<invoke>
+<i'
+ use the shell tool to execute this command.
+</think>
+
+I'll execute the command for you.
+<invoke>
+<invoke name="shell">
+<parameter name="args"> "echo XML🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: 'ING_TEST"
+</parameter>
+</invoke>'
+_PARSING_TEST"
+</parameter>
+</invoke>[2m2026-01-09T13:11:03.094412Z[0m [34mDEBUG[0m [2mg3_core::streaming_parser[0m[2m:[0m Message finished, processing accumulated tool calls
+
+
+⏱️ 3.3s | 💭 2.4s  [2m19%[0m

@@ -1,0 +1,143 @@
+{
+  "total": 20,
+  "passed": 0,
+  "failed": 20,
+  "missing_arg_errors": 3,
+  "success_rate": 0.0,
+  "results": [
+    {
+      "description": "Simple directory check",
+      "prompt": "Check backend directory",
+      "success": false,
+      "actual_command": null,
+      "missing_arg_error": true,
+      "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\ng3 programming agent\n      >> what shall we build today?\n\n\ud83d\udd27 \u001b[38;5;14manthropic.minimax_local\u001b[0m | \u001b[38;5;11..."
+    },
+    {
+      "description": "List deployment files",
+      "prompt": "List deployment files",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Show src contents",
+      "prompt": "Show src contents",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "What files are here?",
+      "prompt": "What files are here?",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Look at backend",
+      "prompt": "Look at backend",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Backend",
+      "prompt": "Backend",
+      "success": false,
+      "actual_command": null,
+      "missing_arg_error": false,
+      "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\ng3 programming agent\n      >> what shall we build today?\n\n\ud83d\udd27 \u001b[38;5;14manthropic.minimax_local\u001b[0m | \u001b[38;5;11..."
+    },
+    {
+      "description": "Frontend",
+      "prompt": "Frontend",
+      "success": false,
+      "actual_command": null,
+      "missing_arg_error": false,
+      "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\ng3 programming agent\n      >> what shall we build today?\n\n\ud83d\udd27 \u001b[38;5;14manthropic.minimax_local\u001b[0m | \u001b[38;5;11..."
+    },
+    {
+      "description": "Test directory",
+      "prompt": "Test directory",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "List then check backend",
+      "prompt": "List files then check backend",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Show current dir and backend",
+      "prompt": "Show current dir and list backend",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Check what's in backend",
+      "prompt": "Check what's in backend",
+      "success": false,
+      "actual_command": null,
+      "missing_arg_error": true,
+      "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\ng3 programming agent\n      >> what shall we build today?\n\n\ud83d\udd27 \u001b[38;5;14manthropic.minimax_local\u001b[0m | \u001b[38;5;11..."
+    },
+    {
+      "description": "Look at deployment folder",
+      "prompt": "Look at deployment folder",
+      "success": false,
+      "actual_command": null,
+      "missing_arg_error": true,
+      "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\ng3 programming agent\n      >> what shall we build today?\n\n\ud83d\udd27 \u001b[38;5;14manthropic.minimax_local\u001b[0m | \u001b[38;5;11..."
+    },
+    {
+      "description": "Show me the src",
+      "prompt": "Show me the src directory",
+      "success": false,
+      "actual_command": null,
+      "missing_arg_error": false,
+      "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\ng3 programming agent\n      >> what shall we build today?\n\n\ud83d\udd27 \u001b[38;5;14manthropic.minimax_local\u001b[0m | \u001b[38;5;11..."
+    },
+    {
+      "description": "Use shell to list",
+      "prompt": "Use shell tool to list files",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Execute shell command",
+      "prompt": "Execute shell command: ls -la",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Run shell with ls",
+      "prompt": "Run shell with ls command",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Shell: ls",
+      "prompt": "Shell: ls -la",
+      "success": false,
+      "actual_command": null,
+      "missing_arg_error": false,
+      "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\n\ud83d\udd04 Previous session detected!\n   Session: shell_command_find_-\n   Context: 19.5% used\n\nResume this session? [Y..."
+    },
+    {
+      "description": "List files",
+      "prompt": "List files",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Show directory",
+      "prompt": "Show current directory",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    },
+    {
+      "description": "Check files",
+      "prompt": "Check files in current directory",
+      "success": false,
+      "error": "Command '['/home/clauderun/.local/bin/g3']' timed out after 15 seconds"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+--- a/src/loadbalancer/api_server.py
++++ b/src/loadbalancer/api_server.py
+@@ -545,20 +545,25 @@
+         try:
+             response = await self.provider_manager.route_create_message(
+                 messages=messages,
+                 model=model,
+                 max_tokens=max_tokens,
+                 temperature=temperature,
+                 stream=True,
+                 request_body=request_body,
+                 headers=headers,
+                 **kwargs
+             )
+ 
+-            # The actual streaming logic would be implemented here
+-            # For now, yield a simple completion
+-            yield "data: " + json.dumps({
+-                "type": "content_block_delta",
+-                "index": 0,
+-                "delta": {
+-                    "text": "Streaming response would be here"
+-                }
+-            }) + "\n\n"
+-            yield "data: [DONE]\n\n"
++            # Handle streaming response
++            if hasattr(response, '__aiter__'):
++                # response is an AsyncGenerator - stream the actual content
++                async for chunk in response:
++                    if isinstance(chunk, str):
++                        # Provider returns properly formatted SSE data
++                        yield chunk
++                    else:
++                        # Provider returns raw data - format it
++                        yield f"data: {json.dumps(chunk)}\n\n"
++            else:
++                # Fallback: provider returned a regular response, convert to streaming format
++                logger.warning("Provider returned non-streaming response for streaming request, converting to SSE format")
++                yield f"data: {json.dumps(response)}\n\n"
++                yield "data: [DONE]\n\n"
+ 
+         except Exception as e:
+             logger.error(f"Streaming error: {e}")

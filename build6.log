@@ -1,0 +1,129 @@
+warning: variable `system_message` is assigned to, but never used
+  --> crates/g3-providers/src/anthropic_compatible.rs:77:13
+   |
+77 |         let mut system_message = None;
+   |             ^^^^^^^^^^^^^^^^^^
+   |
+   = note: consider using `_system_message` instead
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `system_message` is never read
+  --> crates/g3-providers/src/anthropic_compatible.rs:82:21
+   |
+82 |                     system_message = Some(message.content.clone());
+   |                     ^^^^^^^^^^^^^^
+   |
+   = help: maybe it is overwritten before being read?
+   = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `enable_1m_context` is never read
+  --> crates/g3-providers/src/anthropic_compatible.rs:31:5
+   |
+22 | pub struct AnthropicCompatibleProvider {
+   |            --------------------------- field in this struct
+...
+31 |     enable_1m_context: bool,
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = note: `AnthropicCompatibleProvider` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `id`, `response_type`, `role`, `stop_reason`, and `stop_sequence` are never read
+   --> crates/g3-providers/src/anthropic_compatible.rs:388:5
+    |
+387 | struct AnthropicResponse {
+    |        ----------------- fields in this struct
+388 |     id: String,
+    |     ^^
+389 |     #[serde(rename = "type")]
+390 |     response_type: String,
+    |     ^^^^^^^^^^^^^
+391 |     role: String,
+    |     ^^^^
+...
+395 |     stop_reason: Option<String>,
+    |     ^^^^^^^^^^^
+396 |     #[serde(rename = "stop_sequence")]
+397 |     stop_sequence: Option<String>,
+    |     ^^^^^^^^^^^^^
+    |
+    = note: `AnthropicResponse` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: field `chunk_type` is never read
+   --> crates/g3-providers/src/anthropic_compatible.rs:425:5
+    |
+423 | struct AnthropicStreamChunk {
+    |        -------------------- field in this struct
+424 |     #[serde(rename = "type")]
+425 |     chunk_type: String,
+    |     ^^^^^^^^^^
+    |
+    = note: `AnthropicStreamChunk` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: field `delta_type` is never read
+   --> crates/g3-providers/src/anthropic_compatible.rs:433:5
+    |
+431 | struct AnthropicDelta {
+    |        -------------- field in this struct
+432 |     #[serde(rename = "type")]
+433 |     delta_type: Option<String>,
+    |     ^^^^^^^^^^
+    |
+    = note: `AnthropicDelta` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: method `convert_stream_chunk` is never used
+   --> crates/g3-providers/src/anthropic_compatible.rs:438:8
+    |
+437 | impl AnthropicCompatibleProvider {
+    | -------------------------------- method in this implementation
+438 |     fn convert_stream_chunk(&self, chunk: AnthropicStreamChunk) -> CompletionChunk {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: `g3-providers` (lib) generated 7 warnings
+   Compiling g3-core v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-core)
+warning: unused variable: `allow_multiple_tool_calls`
+  --> crates/g3-core/src/prompts.rs:63:52
+   |
+63 | pub fn get_agent_system_prompt(agent_prompt: &str, allow_multiple_tool_calls: bool) -> String {
+   |                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_allow_multiple_tool_calls`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `final_output_called` is never read
+    --> crates/g3-core/src/lib.rs:2229:33
+     |
+2229 | ...                   final_output_called = true;
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+     = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `try_find_xml_tool_call` is never used
+   --> crates/g3-core/src/streaming_parser.rs:185:8
+    |
+ 48 | impl StreamingToolParser {
+    | ------------------------ method in this implementation
+...
+185 |     fn try_find_xml_tool_call(&self) -> Option<Vec<ToolCall>> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `SYSTEM_NON_NATIVE_TOOL_USE` is never used
+  --> crates/g3-core/src/prompts.rs:48:7
+   |
+48 | const SYSTEM_NON_NATIVE_TOOL_USE: &'static str =
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_base_system_prompt` is never used
+  --> crates/g3-core/src/prompts.rs:68:8
+   |
+68 | pub fn get_base_system_prompt(allow_multiple_tool_calls: bool) -> String {
+   |        ^^^^^^^^^^^^^^^^^^^^^^
+
+   Compiling g3-planner v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-planner)
+   Compiling g3-ensembles v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-ensembles)
+   Compiling g3-cli v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-cli)
+warning: `g3-core` (lib) generated 5 warnings (run `cargo fix --lib -p g3-core` to apply 1 suggestion)
+   Compiling g3 v0.1.0 (/home/clauderun/g3-vps-friendly)
+    Finished `release` profile [optimized] target(s) in 49.99s

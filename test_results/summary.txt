@@ -1,0 +1,9 @@
+📋 TEST SUMMARY
+==================
+Tests run: 3
+Config used: test_localhost_config.toml
+Provider: localhost:9000 (minimax via load balancer)
+
+Tool execution detected in: 3/3 tests
+Thinking mode detected in: 3/3 tests
+✅ OVERALL RESULT: TOOL EXECUTION IS WORKING

@@ -1,0 +1,10 @@
+--- crates/g3-core/src/tool_dispatch.rs
++++ crates/g3-core/src/tool_dispatch.rs
+@@ -28,6 +29,7 @@ pub async fn dispatch_tool<W: UiWriter>(
+         "background_process" => shell::execute_background_process(tool_call, ctx).await,
+ 
+         // File operations
+         "read_file" => {
++            eprintln!("🔍 TOOL_DISPATCH: Dispatching read_file tool");
+             file_ops::execute_read_file(tool_call, ctx).await
+         }

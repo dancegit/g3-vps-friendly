@@ -116,6 +116,10 @@ impl UiWriter for ConsoleUiWriter {
         // Reset output_line_printed at the start of a new tool output
         // This ensures the header isn't cleared by update_tool_output_line
         *self.output_line_printed.lock().unwrap() = false;
+        
+        // CRITICAL: Flush before printing tool header to ensure clean output
+        let _ = io::stdout().flush();
+        
         // Now print the tool header with the most important arg
         // Use royal blue in agent mode, bold green otherwise
         let is_agent_mode = *self.is_agent_mode.lock().unwrap();
@@ -210,6 +214,10 @@ impl UiWriter for ConsoleUiWriter {
             return;
         }
         println!("│ \x1b[2m{}\x1b[0m", line);
+        
+        // CRITICAL: Add immediate flush to ensure tool output is visible
+        // This fixes the issue where tool output appears to be missing in interactive mode
+        let _ = io::stdout().flush();
     }
 
     fn print_tool_output_summary(&self, count: usize) {
@@ -264,6 +272,11 @@ impl UiWriter for ConsoleUiWriter {
 
         println!("└─ ⚡️ {}{}\x1b[0m  \x1b[2m{} ◉ | {:.0}%\x1b[0m", color_code, duration_str, tokens_delta, context_percentage);
         println!();
+        
+        // CRITICAL: Add explicit flush after tool timing to ensure all output is visible
+        // This fixes the issue where tool output appears to be missing in interactive mode
+        let _ = io::stdout().flush();
+        
         // Clear the stored tool info
         *self.current_tool_name.lock().unwrap() = None;
         self.current_tool_args.lock().unwrap().clear();

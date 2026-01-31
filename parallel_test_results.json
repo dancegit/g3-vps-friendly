@@ -1,0 +1,1187 @@
+{
+  "anthropic_direct": {
+    "config_name": "anthropic_direct",
+    "config_info": {
+      "config": "config.anthropic.direct.toml",
+      "description": "Anthropic direct API",
+      "type": "direct"
+    },
+    "total_tests": 19,
+    "successful_tests": 0,
+    "failed_tests": 19,
+    "missing_arg_errors": 0,
+    "success_rate": 0.0,
+    "results": [
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "List files",
+        "success": false,
+        "duration": 0.30806994438171387,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5Ws1gkvJzKuHJv2xTM\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:09.581682Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Show current directory",
+        "success": false,
+        "duration": 0.3413567543029785,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5WtPXzqd5Xij4mXEuD\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:09.891378Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Check file contents of README.md",
+        "success": false,
+        "duration": 0.329632043838501,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5WutKqdDd9cb8jMAAa\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:10.245515Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "List backend directory",
+        "success": false,
+        "duration": 1.361912727355957,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5WwWZDb18R8LyqTiUZ\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:10.601554Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "What files are here?",
+        "success": false,
+        "duration": 1.1574885845184326,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5X3CcFLk1c46EyMNg7\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:11.943057Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Look at backend directory",
+        "success": false,
+        "duration": 0.34077930450439453,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5X85Yut3AdeTuazqhn\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:13.093651Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Check deployment folder",
+        "success": false,
+        "duration": 0.3083522319793701,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5X9WNKcZMbe9sdZtnG\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:13.431544Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Show src contents",
+        "success": false,
+        "duration": 0.3481783866882324,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XAuDRcCyeWhUiWuDz\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:13.745697Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "List all files with details",
+        "success": false,
+        "duration": 0.3248724937438965,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XCMH6fASUZF7EdL56\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:14.101169Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Find Python files in current directory",
+        "success": false,
+        "duration": 0.4801597595214844,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XDr52GQCxTRkdhX7m\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:14.407450Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Echo hello world",
+        "success": false,
+        "duration": 0.3219339847564697,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XFkR4MaTLnReX15VK\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:14.897278Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Check disk usage",
+        "success": false,
+        "duration": 0.3873724937438965,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XHSN2tCtmnKzHebHi\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:15.285868Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Backend",
+        "success": false,
+        "duration": 0.44666433334350586,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XK7aKG5p35dH8wFRD\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:15.633876Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Frontend check",
+        "success": false,
+        "duration": 0.32074642181396484,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XLk3sSrYxWTnNogjn\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:16.060050Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Test directory",
+        "success": false,
+        "duration": 0.32251429557800293,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XN89Jp9LYiq49g3Jb\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:16.383122Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Use shell to list files",
+        "success": false,
+        "duration": 0.816723108291626,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XQXWCroXem5pABkkq\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:16.722049Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Execute shell command: ls -la",
+        "success": false,
+        "duration": 0.3542962074279785,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XT44GAdnKacgg6wCe\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:17.540766Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Run shell with ls command",
+        "success": false,
+        "duration": 0.35622191429138184,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XUX7bMGQf88FkqdBM\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:17.866915Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "anthropic_direct",
+        "config_description": "Anthropic direct API",
+        "config_type": "direct",
+        "prompt": "Shell command: find . -name '*.py'",
+        "success": false,
+        "duration": 0.3767886161804199,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 401 Unauthorized: {\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"},\"request_id\":\"req_011CWx5XWFJ6PYqSk8tGsRGQ\"}"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.claude_direct\n\u001b[2m2026-01-09T15:57:18.226776Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      }
+    ]
+  },
+  "minimax_direct": {
+    "config_name": "minimax_direct",
+    "config_info": {
+      "config": "config.anthropic.minimax.toml",
+      "description": "MiniMax direct API",
+      "type": "direct"
+    },
+    "total_tests": 19,
+    "successful_tests": 0,
+    "failed_tests": 19,
+    "missing_arg_errors": 0,
+    "success_rate": 0.0,
+    "results": [
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "List files",
+        "success": false,
+        "duration": 1.094416618347168,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:09.579106Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Show current directory",
+        "success": false,
+        "duration": 0.9315812587738037,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:10.682343Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Check file contents of README.md",
+        "success": false,
+        "duration": 0.9294724464416504,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:11.614981Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "List backend directory",
+        "success": false,
+        "duration": 1.3110673427581787,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:12.547551Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "What files are here?",
+        "success": false,
+        "duration": 0.9166746139526367,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:13.864163Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Look at backend directory",
+        "success": false,
+        "duration": 0.9400537014007568,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:14.798788Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Check deployment folder",
+        "success": false,
+        "duration": 0.9339063167572021,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:15.729064Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Show src contents",
+        "success": false,
+        "duration": 0.9164397716522217,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:16.650811Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "List all files with details",
+        "success": false,
+        "duration": 0.9079270362854004,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:17.561524Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Find Python files in current directory",
+        "success": false,
+        "duration": 0.9329068660736084,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:18.494037Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Echo hello world",
+        "success": false,
+        "duration": 0.9011452198028564,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:19.403789Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Check disk usage",
+        "success": false,
+        "duration": 1.2405331134796143,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:20.341375Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Backend",
+        "success": false,
+        "duration": 0.9342944622039795,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:21.564684Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Frontend check",
+        "success": false,
+        "duration": 0.9477362632751465,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:22.518748Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Test directory",
+        "success": false,
+        "duration": 0.8970623016357422,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:23.426427Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Use shell to list files",
+        "success": false,
+        "duration": 0.9534485340118408,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:24.349680Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Execute shell command: ls -la",
+        "success": false,
+        "duration": 0.9372191429138184,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:25.314671Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Run shell with ls command",
+        "success": false,
+        "duration": 0.9196140766143799,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:26.242239Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      },
+      {
+        "config": "minimax_direct",
+        "config_description": "MiniMax direct API",
+        "config_type": "direct",
+        "prompt": "Shell command: find . -name '*.py'",
+        "success": false,
+        "duration": 0.9614684581756592,
+        "tool_calls": [],
+        "errors": [
+          "Error: Anthropic API error 404 Not Found: 404 page not found"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_direct\n\u001b[2m2026-01-09T15:57:27.177758Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser autom...",
+        "return_code": 0
+      }
+    ]
+  },
+  "kimi_direct": {
+    "config_name": "kimi_direct",
+    "config_info": {
+      "config": "config.anthropic.kimi.toml",
+      "description": "Kimi direct API",
+      "type": "direct"
+    },
+    "total_tests": 19,
+    "successful_tests": 0,
+    "failed_tests": 19,
+    "missing_arg_errors": 0,
+    "success_rate": 0.0,
+    "results": [
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "List files",
+        "success": false,
+        "duration": 2.901132583618164,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:09.594196Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Show current directory",
+        "success": false,
+        "duration": 1.4225223064422607,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:12.490025Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Check file contents of README.md",
+        "success": false,
+        "duration": 1.667057991027832,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:13.911553Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "List backend directory",
+        "success": false,
+        "duration": 2.021806240081787,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:15.602563Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "What files are here?",
+        "success": false,
+        "duration": 1.777390956878662,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:17.612877Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Look at backend directory",
+        "success": false,
+        "duration": 3.0441839694976807,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:19.376084Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Check deployment folder",
+        "success": false,
+        "duration": 2.733397960662842,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:22.445878Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Show src contents",
+        "success": false,
+        "duration": 2.2788422107696533,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:25.180547Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "List all files with details",
+        "success": false,
+        "duration": 1.8829095363616943,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:27.500555Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Find Python files in current directory",
+        "success": false,
+        "duration": 5.639056921005249,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:29.318378Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Echo hello world",
+        "success": false,
+        "duration": 2.2757818698883057,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:34.958669Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Check disk usage",
+        "success": false,
+        "duration": 1.8421344757080078,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:37.249212Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Backend",
+        "success": false,
+        "duration": 1.8378305435180664,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:39.073851Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Frontend check",
+        "success": false,
+        "duration": 2.1513588428497314,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:40.973104Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Test directory",
+        "success": false,
+        "duration": 2.4928982257843018,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:43.061471Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Use shell to list files",
+        "success": false,
+        "duration": 1.5649073123931885,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:45.557516Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Execute shell command: ls -la",
+        "success": false,
+        "duration": 2.068063735961914,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:47.113840Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Run shell with ls command",
+        "success": false,
+        "duration": 1.6965150833129883,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:49.182083Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      },
+      {
+        "config": "kimi_direct",
+        "config_description": "Kimi direct API",
+        "config_type": "direct",
+        "prompt": "Shell command: find . -name '*.py'",
+        "success": false,
+        "duration": 2.2408487796783447,
+        "tool_calls": [],
+        "errors": [
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed."
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.kimi_direct\n\u001b[2m2026-01-09T15:57:50.876710Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automati...",
+        "return_code": 0
+      }
+    ]
+  },
+  "localhost_loadbalancer": {
+    "config_name": "localhost_loadbalancer",
+    "config_info": {
+      "config": "test_localhost_config.toml",
+      "description": "Local load balancer (current setup)",
+      "type": "loadbalancer"
+    },
+    "total_tests": 19,
+    "successful_tests": 0,
+    "failed_tests": 19,
+    "missing_arg_errors": 6,
+    "success_rate": 0.0,
+    "results": [
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "List files",
+        "success": false,
+        "duration": 7.61694073677063,
+        "tool_calls": [],
+        "errors": [
+          "Missing command argument\u001b[0m",
+          "command argument\u001b[0m"
+        ],
+        "has_missing_arg_error": true,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:57:09.554939Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Show current directory",
+        "success": false,
+        "duration": 0.07944726943969727,
+        "tool_calls": [],
+        "errors": [],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:57:17.211935Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Check file contents of README.md",
+        "success": false,
+        "duration": 11.069705486297607,
+        "tool_calls": [],
+        "errors": [
+          "Missing file_path argument\u001b[0m",
+          "file_path argument\u001b[0m"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:57:17.264334Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "List backend directory",
+        "success": false,
+        "duration": 0.07164978981018066,
+        "tool_calls": [],
+        "errors": [],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:57:28.341419Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "prompt": "What files are here?",
+        "success": false,
+        "duration": 20.01425862312317,
+        "error": "Timeout after 20 seconds"
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Look at backend directory",
+        "success": false,
+        "duration": 13.186298847198486,
+        "tool_calls": [],
+        "errors": [
+          "Missing command argument\u001b[0m",
+          "Command failed: bash: line 1: backend: command not found\u001b[0m",
+          "Missing command argument\u001b[0m",
+          "command argument\u001b[0m",
+          "command argument\u001b[0m",
+          "bash: line 1: backend: command not found\u001b[0m",
+          "backend: command not found\u001b[0m",
+          "backend: command not found\u001b[0m"
+        ],
+        "has_missing_arg_error": true,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:57:48.404703Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "prompt": "Check deployment folder",
+        "success": false,
+        "duration": 20.00466251373291,
+        "error": "Timeout after 20 seconds"
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Show src contents",
+        "success": false,
+        "duration": 9.392037153244019,
+        "tool_calls": [],
+        "errors": [
+          "Command failed: bash: line 1: src: command not found\u001b[0m",
+          "Command failed: bash: line 1: src: command not found\u001b[0m",
+          "bash: line 1: src: command not found\u001b[0m",
+          "bash: line 1: src: command not found\u001b[0m",
+          "src: command not found\u001b[0m",
+          "src: command not found\u001b[0m",
+          "src: command not found\u001b[0m",
+          "src: command not found\u001b[0m"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:58:21.597195Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "prompt": "List all files with details",
+        "success": false,
+        "duration": 20.004910230636597,
+        "error": "Timeout after 20 seconds"
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Find Python files in current directory",
+        "success": false,
+        "duration": 14.131649732589722,
+        "tool_calls": [],
+        "errors": [
+          "Missing command argument\u001b[0m",
+          "Error: No response received from the model. The model may be experiencing issues or the request may have been malformed.",
+          "command argument\u001b[0m"
+        ],
+        "has_missing_arg_error": true,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:58:50.995652Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Echo hello world",
+        "success": false,
+        "duration": 12.926164627075195,
+        "tool_calls": [],
+        "errors": [
+          "Missing command argument\u001b[0m",
+          "command argument\u001b[0m"
+        ],
+        "has_missing_arg_error": true,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:59:05.156410Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Check disk usage",
+        "success": false,
+        "duration": 0.03939008712768555,
+        "tool_calls": [],
+        "errors": [],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:59:18.082686Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Backend",
+        "success": false,
+        "duration": 5.288114070892334,
+        "tool_calls": [],
+        "errors": [],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:59:18.122166Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Frontend check",
+        "success": false,
+        "duration": 13.501109600067139,
+        "tool_calls": [],
+        "errors": [
+          "Missing command argument\u001b[0m",
+          "Missing command argument\u001b[0m",
+          "command argument\u001b[0m",
+          "command argument\u001b[0m"
+        ],
+        "has_missing_arg_error": true,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:59:23.408203Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Test directory",
+        "success": false,
+        "duration": 5.9829723834991455,
+        "tool_calls": [],
+        "errors": [
+          "Missing command argument\u001b[0m",
+          "command argument\u001b[0m"
+        ],
+        "has_missing_arg_error": true,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:59:36.912386Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Use shell to list files",
+        "success": false,
+        "duration": 14.328714609146118,
+        "tool_calls": [],
+        "errors": [
+          "Command failed: bash: line 1: Cargo.toml: command not found\u001b[0m",
+          "bash: line 1: Cargo.toml: command not found\u001b[0m",
+          "Cargo.toml: command not found\u001b[0m",
+          "Cargo.toml: command not found\u001b[0m"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:59:42.891818Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Execute shell command: ls -la",
+        "success": false,
+        "duration": 0.03664064407348633,
+        "tool_calls": [],
+        "errors": [],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T15:59:57.222465Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "prompt": "Run shell with ls command",
+        "success": false,
+        "duration": 20.0045964717865,
+        "error": "Timeout after 20 seconds"
+      },
+      {
+        "config": "localhost_loadbalancer",
+        "config_description": "Local load balancer (current setup)",
+        "config_type": "loadbalancer",
+        "prompt": "Shell command: find . -name '*.py'",
+        "success": false,
+        "duration": 8.51632285118103,
+        "tool_calls": [],
+        "errors": [
+          "Command failed: bash: -c: line 1: syntax error near unexpected token `('\u001b[0m",
+          "bash: -c: line 1: syntax error near unexpected token `('\u001b[0m"
+        ],
+        "has_missing_arg_error": false,
+        "output_preview": "\u26a0\ufe0f Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local\n\u001b[2m2026-01-09T16:00:17.266504Z\u001b[0m \u001b[33m WARN\u001b[0m \u001b[2mg3_core\u001b[0m\u001b[2m:\u001b[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automa...",
+        "return_code": 0
+      }
+    ]
+  }
+}

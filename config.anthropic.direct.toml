@@ -1,0 +1,47 @@
+# Direct Anthropic API - Official Claude Provider
+# This config connects directly to Anthropic's official API
+
+[providers]
+default_provider = "anthropic.claude_direct"
+
+[providers.anthropic.claude_direct]
+model = "claude-3-sonnet-20240229"
+base_url = "https://api.anthropic.com/v1/messages"
+use_bearer_auth = false
+api_key = "sk-ant-api03-..."  # Add your Anthropic API key here
+max_tokens = 64000
+temperature = 0.3
+
+[providers.anthropic.claude_opus]
+model = "claude-3-opus-20240229"
+base_url = "https://api.anthropic.com/v1/messages"
+use_bearer_auth = false
+api_key = "sk-ant-api03-..."  # Add your Anthropic API key here
+max_tokens = 64000
+temperature = 0.3
+
+[agent]
+fallback_default_max_tokens = 8192
+enable_streaming = true
+timeout_seconds = 60
+max_retry_attempts = 3
+autonomous_max_retry_attempts = 6
+allow_multiple_tool_calls = true
+auto_compact = true
+
+[computer_control]
+enabled = true
+require_confirmation = true
+max_actions_per_second = 5
+
+[webdriver]
+enabled = false
+safari_port = 4444
+chrome_port = 9515
+browser = "safari"
+
+[macax]
+enabled = false
+
+[ui]
+machine_mode = true

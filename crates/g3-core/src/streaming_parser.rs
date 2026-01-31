@@ -16,6 +16,13 @@ const TOOL_CALL_PATTERNS: [&str; 4] = [
     r#"{ "tool" :"#,
 ];
 
+/// Patterns used to detect XML tool calls in text.
+const XML_TOOL_CALL_PATTERNS: [&str; 3] = [
+    r#"<invoke name="#,
+    r#"<invoke>"#,
+    r#"<tool name="#,
+];
+
 /// Modern streaming tool parser that properly handles native tool calls and SSE chunks.
 #[derive(Debug)]
 pub struct StreamingToolParser {
@@ -109,17 +116,36 @@ impl StreamingToolParser {
         // Handle native tool calls - return them immediately when received.
         // This allows tools to be executed as soon as they're fully parsed,
         // preventing duplicate tool calls from being accumulated.
+        debug!("STREAMING_PARSER: process_chunk called - chunk.tool_calls: {:?}", chunk.tool_calls.is_some());
         if let Some(ref tool_calls) = chunk.tool_calls {
-            debug!("Received native tool calls: {:?}", tool_calls);
+            debug!("STREAMING_PARSER: Received native tool calls: count={}, calls={:?}", tool_calls.len(), tool_calls);
 
             // Convert and return tool calls immediately
-            for tool_call in tool_calls {
+            for (i, tool_call) in tool_calls.iter().enumerate() {
+                debug!("STREAMING_PARSER: Processing tool call {} - tool: {}, args: {:?}", i, tool_call.tool, tool_call.args);
+                // Validate tool call - skip empty tool names
+                if tool_call.tool.is_empty() {
+                    debug!("Skipping native tool call with empty tool name");
+                    continue;
+                }
+                
                 let converted_tool = ToolCall {
                     tool: tool_call.tool.clone(),
                     args: tool_call.args.clone(),
                 };
+                debug!("STREAMING_PARSER: Converted tool call {} - tool: {}, args: {:?}", i, converted_tool.tool, converted_tool.args);
+                debug!("STREAMING_PARSER: Tool call {} args type: {:?}", i, std::mem::discriminant(&converted_tool.args));
+                if let Some(args_obj) = converted_tool.args.as_object() {
+                    debug!("STREAMING_PARSER: Tool call {} args keys: {:?}", i, args_obj.keys().collect::<Vec<_>>());
+                    for (key, value) in args_obj {
+                        debug!("STREAMING_PARSER: Tool call {} - {}: {:?}", i, key, value);
+                    }
+                }
                 completed_tools.push(converted_tool);
             }
+            debug!("STREAMING_PARSER: Completed processing {} native tool calls", completed_tools.len());
+        } else {
+            debug!("STREAMING_PARSER: No native tool calls in chunk");
         }
 
         // Check if message is finished/stopped
@@ -127,32 +153,80 @@ impl StreamingToolParser {
             self.message_stopped = true;
             debug!("Message finished, processing accumulated tool calls");
 
-            // When stream finishes, find ALL JSON tool calls in the accumulated buffer
+            // When stream finishes, find ALL tool calls (JSON and XML) in the accumulated buffer
             if completed_tools.is_empty() && !self.text_buffer.is_empty() {
-                let all_tools = self.try_parse_all_json_tool_calls_from_buffer();
-                if !all_tools.is_empty() {
+                // Try XML parsing first
+                let xml_tools = self.try_parse_xml_tool_calls_from_text(&self.text_buffer);
+                if !xml_tools.is_empty() {
                     debug!(
-                        "Found {} JSON tool calls in buffer at stream end",
-                        all_tools.len()
+                        "Found {} XML tool calls in buffer at stream end",
+                        xml_tools.len()
                     );
-                    completed_tools.extend(all_tools);
+                    completed_tools.extend(xml_tools);
+                } else {
+                    // Fallback to JSON parsing
+                    let all_json_tools = self.try_parse_all_json_tool_calls_from_buffer();
+                    if !all_json_tools.is_empty() {
+                        debug!(
+                            "Found {} JSON tool calls in buffer at stream end",
+                            all_json_tools.len()
+                        );
+                        completed_tools.extend(all_json_tools);
+                    }
                 }
             }
         }
 
-        // Fallback: Try to parse JSON tool calls from current chunk content if no native tool calls
+        // Fallback: Try to parse tool calls (XML first, then JSON) from current chunk content if no native tool calls
         if completed_tools.is_empty() && !chunk.content.is_empty() && !chunk.finished {
-            if let Some(json_tool) = self.try_parse_json_tool_call(&chunk.content) {
-                completed_tools.push(json_tool);
+            // Try XML parsing first
+            let xml_tools = self.try_parse_xml_tool_calls_from_text(&chunk.content);
+            if !xml_tools.is_empty() {
+                completed_tools.extend(xml_tools);
+            } else {
+                // Fallback to JSON parsing
+                if let Some(json_tool) = self.try_parse_json_tool_call(&chunk.content) {
+                    completed_tools.push(json_tool);
+                }
             }
         }
 
         completed_tools
     }
 
+    /// Try to find XML tool calls in the current text buffer.
+    fn try_find_xml_tool_call(&self) -> Option<Vec<ToolCall>> {
+        // Look for XML patterns in the text buffer
+        let xml_tools = self.try_parse_xml_tool_calls_from_text(&self.text_buffer);
+        
+        if !xml_tools.is_empty() {
+            debug!("Found {} XML tool calls", xml_tools.len());
+            Some(xml_tools)
+        } else {
+            None
+        }
+    }
+
     /// Fallback method to parse JSON tool calls from text content.
     fn try_parse_json_tool_call(&mut self, _content: &str) -> Option<ToolCall> {
-        // If we're not currently in a JSON tool call, look for the start
+        // Try to find XML tool calls in the text buffer (this is more reliable than chunk-based parsing)
+        // Only look for complete XML tool calls that haven't been processed yet
+        let current_buffer = &self.text_buffer[self.last_consumed_position..];
+        let xml_tools = self.try_parse_xml_tool_calls_from_text(current_buffer);
+        
+        if !xml_tools.is_empty() {
+            debug!("Found {} XML tool calls in fallback parsing", xml_tools.len());
+            // Return the first one and mark it as consumed
+            if let Some(tool_call) = xml_tools.into_iter().next() {
+                // Mark this tool call as consumed by updating the position
+                if let Some(pos) = current_buffer.find(&format!("<invoke name=\"{}\"", tool_call.tool)) {
+                    self.last_consumed_position = self.text_buffer.len() - current_buffer.len() + pos + 1;
+                }
+                return Some(tool_call);
+            }
+        }
+        
+        // If no XML found, try JSON
         if !self.in_json_tool_call {
             if let Some(pos) = Self::find_last_tool_call_start(&self.text_buffer) {
                 debug!("Found JSON tool call pattern at position {}", pos);
@@ -173,6 +247,14 @@ impl StreamingToolParser {
 
                     // Try to parse as a ToolCall
                     if let Ok(tool_call) = serde_json::from_str::<ToolCall>(json_str) {
+                        // Validate tool call - skip empty tool names
+                        if tool_call.tool.is_empty() {
+                            debug!("Skipping JSON tool call with empty tool name");
+                            self.in_json_tool_call = false;
+                            self.json_tool_start = None;
+                            return None;
+                        }
+                        
                         // Validate that args is an object with reasonable keys
                         if let Some(args_obj) = tool_call.args.as_object() {
                             if Self::args_contain_prose_fragments(args_obj) {
@@ -222,7 +304,10 @@ impl StreamingToolParser {
                     let json_str = &json_text[..=end_pos];
 
                     if let Ok(tool_call) = serde_json::from_str::<ToolCall>(json_str) {
-                        if let Some(args_obj) = tool_call.args.as_object() {
+                        // Validate tool call - skip empty tool names
+                        if tool_call.tool.is_empty() {
+                            debug!("Skipping bulk parsed tool call with empty tool name");
+                        } else if let Some(args_obj) = tool_call.args.as_object() {
                             if !Self::args_contain_prose_fragments(args_obj) {
                                 debug!(
                                     "Found tool call at position {}: {:?}",
@@ -338,6 +423,204 @@ impl StreamingToolParser {
         None // No complete JSON object found
     }
 
+    /// Try to parse XML tool calls from text content.
+    /// This handles XML format like <invoke name="shell"><parameter name="args">{"command": "ls"}</parameter></invoke>
+    pub fn try_parse_xml_tool_calls_from_text(&self, text: &str) -> Vec<ToolCall> {
+        let mut tools = Vec::new();
+        
+        debug!("Trying to parse XML tool calls from text: {}", text);
+        
+        // Look for XML tool call patterns in the text
+        for pattern in XML_TOOL_CALL_PATTERNS.iter() {
+            debug!("Looking for XML pattern: {}", pattern);
+            let mut start = 0;
+            while let Some(pos) = text[start..].find(pattern) {
+                debug!("Found XML pattern at position: {}", pos);
+                let actual_pos = start + pos;
+                
+                // Try to find the complete XML element
+                if let Some(xml_end) = Self::find_complete_xml_element_end(&text[actual_pos..]) {
+                    let xml_str = &text[actual_pos..actual_pos + xml_end];
+                    debug!("Found complete XML element: {}", xml_str);
+                    
+                    if let Some(tool_call) = self.parse_xml_tool_call(xml_str) {
+                        debug!("Found XML tool call in text: {:?}", tool_call);
+                        tools.push(tool_call);
+                    }
+                } else {
+                    debug!("No complete XML element found");
+                }
+                
+                start = actual_pos + 1;
+            }
+        }
+        
+        debug!("XML parsing completed, found {} tools", tools.len());
+        tools
+    }
+
+    /// Find the end position of a complete XML element.
+    fn find_complete_xml_element_end(text: &str) -> Option<usize> {
+        // Look for matching closing tag
+        if let Some(start_pos) = text.find('<') {
+            if let Some(tag_end) = text[start_pos + 1..].find('>') {
+                let tag_name_start = start_pos + 1;
+                let tag_name_end = tag_end + start_pos + 1;
+                let tag_content = &text[tag_name_start..tag_name_end];
+                
+                // Extract tag name (handle attributes)
+                let tag_name: String = tag_content.chars()
+                    .take_while(|c| !c.is_whitespace() && *c != '>')
+                    .collect();
+                
+                if !tag_name.starts_with('/') {
+                    // Look for closing tag
+                    let closing_tag = format!("</{}>", tag_name);
+                    if let Some(close_pos) = text.find(&closing_tag) {
+                        return Some(close_pos + closing_tag.len());
+                    }
+                }
+            }
+        }
+        None
+    }
+
+    /// Parse an XML tool call into a ToolCall struct.
+    fn parse_xml_tool_call(&self, xml_str: &str) -> Option<ToolCall> {
+        debug!("parse_xml_tool_call called with: {}", xml_str);
+        
+        // Try to extract tool name and args from XML
+        // Format: <invoke name="shell"><parameter name="args">{"command": "ls"}</parameter></invoke>
+        
+        // Extract tool name
+        let tool_name = if xml_str.contains("<invoke name=") {
+            // Extract from <invoke name="toolname">
+            if let Some(start) = xml_str.find("name=\"") {
+                let start = start + 6; // Skip 'name="'
+                if let Some(end) = xml_str[start..].find('"') {
+                    xml_str[start..start + end].to_string()
+                } else {
+                    return None;
+                }
+            } else {
+                return None;
+            }
+        } else if xml_str.contains("<tool name=") {
+            // Extract from <tool name="toolname">
+            if let Some(start) = xml_str.find("name=\"") {
+                let start = start + 6; // Skip 'name="'
+                if let Some(end) = xml_str[start..].find('"') {
+                    xml_str[start..start + end].to_string()
+                } else {
+                    return None;
+                }
+            } else {
+                return None;
+            }
+        } else {
+            return None;
+        };
+        
+        debug!("Extracted tool name: {}", tool_name);
+        
+        // Look for <parameter name="args"> content specifically
+        let args = if let Some(args_param) = xml_str.find(r#"<parameter name="args">"#) {
+            let content_start = args_param + r#"<parameter name="args">"#.len();
+            if let Some(content_end) = xml_str[content_start..].find(r#"</parameter>"#) {
+                let content = &xml_str[content_start..content_start + content_end];
+                debug!("Found parameter args content: '{}'", content);
+                
+                // Clean up whitespace and newlines
+                let cleaned_content = content.trim().replace("\n", " ").replace("  ", " ");
+                debug!("Cleaned content: '{}'", cleaned_content);
+                
+                // Try to parse as JSON first
+                if let Ok(json_args) = serde_json::from_str::<serde_json::Value>(&cleaned_content) {
+                    debug!("Parsed as JSON: {:?}", json_args);
+                    json_args
+                } else {
+                    debug!("Failed to parse as JSON, using content as command");
+                    // If not JSON, create a simple args object with command
+                    serde_json::json!({
+                        "command": cleaned_content.trim()
+                    })
+                }
+            } else {
+                debug!("No closing </parameter> tag found");
+                serde_json::json!({})
+            }
+        } else if let Some(simple_content) = xml_str.find('>') {
+            // Fallback: look for any content between tags
+            let content_start = simple_content + 1;
+            if let Some(content_end) = xml_str[content_start..].find("</") {
+                let content = &xml_str[content_start..content_start + content_end];
+                debug!("Using simple content extraction: '{}'", content);
+                
+                // Clean up whitespace and newlines
+                let cleaned_content = content.trim().replace("\n", " ").replace("  ", " ");
+                debug!("Cleaned simple content: '{}'", cleaned_content);
+                
+                // Try to parse as JSON first
+                if let Ok(json_args) = serde_json::from_str::<serde_json::Value>(&cleaned_content) {
+                    debug!("Parsed as JSON: {:?}", json_args);
+                    json_args
+                } else {
+                    debug!("Using content as command: '{}'", cleaned_content.trim());
+                    serde_json::json!({
+                        "command": cleaned_content.trim()
+                    })
+                }
+            } else {
+                debug!("No closing tag found in simple extraction");
+                serde_json::json!({})
+            }
+        } else {
+            debug!("No content found in XML");
+            serde_json::json!({})
+        };
+        
+        debug!("Final args: {:?}", args);
+        
+        if tool_name.is_empty() {
+            None
+        } else {
+            Some(ToolCall { tool: tool_name, args })
+        }
+    }
+
+    /// Try to parse JSON tool calls from text content for load balancer compatibility.
+    /// This handles cases where native tool calls aren't properly supported.
+    pub fn try_parse_json_tool_calls_from_text(&mut self, text: &str) -> Vec<ToolCall> {
+        let mut tools = Vec::new();
+        
+        // Look for JSON tool call patterns in the text
+        for pattern in TOOL_CALL_PATTERNS.iter() {
+            let mut start = 0;
+            while let Some(pos) = text[start..].find(pattern) {
+                let actual_pos = start + pos;
+                
+                // Try to find the complete JSON object starting from this position
+                if let Some(json_end) = Self::find_complete_json_object_end(&text[actual_pos..]) {
+                    let json_str = &text[actual_pos..actual_pos + json_end + 1];
+                    
+                    if let Ok(tool_call) = serde_json::from_str::<ToolCall>(json_str) {
+                        // Validate tool call - skip empty tool names
+                        if tool_call.tool.is_empty() {
+                            debug!("Skipping text parsed tool call with empty tool name");
+                        } else {
+                            debug!("Found JSON tool call in text: {:?}", tool_call);
+                            tools.push(tool_call);
+                        }
+                    }
+                }
+                
+                start = actual_pos + 1;
+            }
+        }
+        
+        tools
+    }
+
     /// Reset the parser state for a new message.
     pub fn reset(&mut self) {
         self.text_buffer.clear();
@@ -366,6 +649,46 @@ impl StreamingToolParser {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::ToolCall;
+    use serde_json;
+
+    #[test]
+    fn test_tool_call_json_parsing() {
+        // Test the exact format that should work
+        let json_str = r#"{"tool":"shell","args":{"command":"ls -la"}}"#;
+        
+        match serde_json::from_str::<ToolCall>(json_str) {
+            Ok(tool_call) => {
+                assert_eq!(tool_call.tool, "shell");
+                assert!(tool_call.args.is_object());
+                if let Some(args_obj) = tool_call.args.as_object() {
+                    if let Some(command) = args_obj.get("command").and_then(|v| v.as_str()) {
+                        assert_eq!(command, "ls -la");
+                    } else {
+                        panic!("Missing command argument");
+                    }
+                } else {
+                    panic!("Args is not an object");
+                }
+            }
+            Err(e) => panic!("Failed to parse JSON: {}", e),
+        }
+    }
+
+    #[test]
+    fn test_streaming_parser_with_simple_tool_call() {
+        let mut parser = StreamingToolParser::new();
+        
+        // Simulate a simple tool call being streamed
+        let text = r#"Let me run a command: {"tool":"shell","args":{"command":"ls -la"}}"#;
+        
+        // Process the text as if it came from a chunk
+        let tools = parser.try_parse_json_tool_calls_from_text(text);
+        
+        assert_eq!(tools.len(), 1);
+        assert_eq!(tools[0].tool, "shell");
+        assert!(tools[0].args.is_object());
+    }
 
     #[test]
     fn test_find_complete_json_object_end_simple() {
@@ -389,6 +712,28 @@ mod tests {
     fn test_find_complete_json_object_end_incomplete() {
         let text = r#"{"tool":"shell","args":{"command":"ls""#;
         assert_eq!(StreamingToolParser::find_complete_json_object_end(text), None);
+    }
+
+    #[test]
+    fn test_xml_tool_call_parsing() {
+        let mut parser = StreamingToolParser::new();
+        
+        // Test XML format: <invoke name="shell"><parameter name="args">{"command": "ls"}</parameter></invoke>
+        let xml_text = r#"I'll run a command: <invoke name="shell"><parameter name="args">{"command": "ls -la"}</parameter></invoke> for you."#;
+        
+        let tools = parser.try_parse_xml_tool_calls_from_text(xml_text);
+        
+        assert_eq!(tools.len(), 1);
+        assert_eq!(tools[0].tool, "shell");
+        assert!(tools[0].args.is_object());
+        
+        // Test alternative XML format: <tool name="shell" command="ls -la"/>
+        let xml_text2 = r#"Let me check: <tool name="shell" command="ls -la"/> the directory."#;
+        
+        let tools2 = parser.try_parse_xml_tool_calls_from_text(xml_text2);
+        
+        assert_eq!(tools2.len(), 1);
+        assert_eq!(tools2[0].tool, "shell");
     }
 
     #[test]

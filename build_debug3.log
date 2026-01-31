@@ -1,0 +1,43 @@
+   Compiling g3-core v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-core)
+error: expected one of `(`, `[`, or `{`, found `!`
+    --> crates/g3-core/src/lib.rs:1918:31
+     |
+1918 | ...   debug!!("G3_CORE: Processing chunk - content_len={}, finished={}, tool_calls={:?}", chunk.content.len(), chunk.finished, chunk.tool...
+     |             ^ expected one of `(`, `[`, or `{`
+
+error: expected one of `(`, `[`, or `{`, found `!`
+   --> crates/g3-core/src/streaming_parser.rs:119:15
+    |
+119 |         debug!!("STREAMING_PARSER: process_chunk called - chunk.tool_calls: {:?}", chunk.tool_calls.is_some());
+    |               ^ expected one of `(`, `[`, or `{`
+
+error: expected one of `(`, `[`, or `{`, found `!`
+  --> crates/g3-core/src/tool_dispatch.rs:22:11
+   |
+22 |     debug!!("TOOL_DISPATCH: Starting dispatch for tool: {}", tool_call.tool);
+   |           ^ expected one of `(`, `[`, or `{`
+
+warning: unused imports: `debug` and `warn`
+ --> crates/g3-core/src/tool_dispatch.rs:7:15
+  |
+7 | use tracing::{debug, warn};
+  |               ^^^^^  ^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused imports: `file_ops`, `misc`, `shell`, `todo`, and `webdriver`
+  --> crates/g3-core/src/tool_dispatch.rs:10:20
+   |
+10 | use crate::tools::{file_ops, misc, shell, todo, webdriver};
+   |                    ^^^^^^^^  ^^^^  ^^^^^  ^^^^  ^^^^^^^^^
+
+warning: unused variable: `allow_multiple_tool_calls`
+  --> crates/g3-core/src/prompts.rs:63:52
+   |
+63 | pub fn get_agent_system_prompt(agent_prompt: &str, allow_multiple_tool_calls: bool) -> String {
+   |                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_allow_multiple_tool_calls`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `g3-core` (lib) generated 3 warnings
+error: could not compile `g3-core` (lib) due to 3 previous errors; 3 warnings emitted

@@ -1,0 +1,48 @@
+   Compiling g3-providers v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-providers)
+   Compiling g3-core v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-core)
+warning: unused variable: `allow_multiple_tool_calls`
+  --> crates/g3-core/src/prompts.rs:63:52
+   |
+63 | pub fn get_agent_system_prompt(agent_prompt: &str, allow_multiple_tool_calls: bool) -> String {
+   |                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_allow_multiple_tool_calls`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: value assigned to `final_output_called` is never read
+    --> crates/g3-core/src/lib.rs:2229:33
+     |
+2229 | ...                   final_output_called = true;
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+     = help: maybe it is overwritten before being read?
+     = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `try_find_xml_tool_call` is never used
+   --> crates/g3-core/src/streaming_parser.rs:185:8
+    |
+ 48 | impl StreamingToolParser {
+    | ------------------------ method in this implementation
+...
+185 |     fn try_find_xml_tool_call(&self) -> Option<Vec<ToolCall>> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `SYSTEM_NON_NATIVE_TOOL_USE` is never used
+  --> crates/g3-core/src/prompts.rs:48:7
+   |
+48 | const SYSTEM_NON_NATIVE_TOOL_USE: &'static str =
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `get_base_system_prompt` is never used
+  --> crates/g3-core/src/prompts.rs:68:8
+   |
+68 | pub fn get_base_system_prompt(allow_multiple_tool_calls: bool) -> String {
+   |        ^^^^^^^^^^^^^^^^^^^^^^
+
+   Compiling g3-ensembles v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-ensembles)
+   Compiling g3-planner v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-planner)
+   Compiling g3-cli v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-cli)
+warning: `g3-core` (lib) generated 5 warnings (run `cargo fix --lib -p g3-core` to apply 1 suggestion)
+   Compiling g3 v0.1.0 (/home/clauderun/g3-vps-friendly)
+    Finished `release` profile [optimized] target(s) in 57.16s

@@ -1,0 +1,27 @@
+[2m2026-01-09T23:22:40.626420Z[0m [34mDEBUG[0m [2mreqwest::connect[0m[2m:[0m starting new connection: http://localhost:9000/
+[2m2026-01-09T23:22:40.626783Z[0m [34mDEBUG[0m [2mhyper::client::connect::dns[0m[2m:[0m resolving host="localhost"
+[2m2026-01-09T23:22:40.627170Z[0m [34mDEBUG[0m [2mhyper::client::connect::http[0m[2m:[0m connecting to [::1]:9000
+[2m2026-01-09T23:22:40.627375Z[0m [34mDEBUG[0m [2mhyper::client::connect::http[0m[2m:[0m connecting to 127.0.0.1:9000
+[2m2026-01-09T23:22:40.627517Z[0m [34mDEBUG[0m [2mhyper::client::connect::http[0m[2m:[0m connected to 127.0.0.1:9000
+[2m2026-01-09T23:22:40.627823Z[0m [34mDEBUG[0m [2mhyper::proto::h1::io[0m[2m:[0m flushed 34912 bytes
+[2m2026-01-09T23:22:43.314121Z[0m [34mDEBUG[0m [2mhyper::proto::h1::io[0m[2m:[0m parsed 4 headers
+[2m2026-01-09T23:22:43.314172Z[0m [34mDEBUG[0m [2mhyper::proto::h1::conn[0m[2m:[0m incoming body is content-length (614 bytes)
+[2m2026-01-09T23:22:43.314199Z[0m [34mDEBUG[0m [2mhyper::proto::h1::conn[0m[2m:[0m incoming body completed
+[2m2026-01-09T23:22:43.314266Z[0m [34mDEBUG[0m [2mhyper::client::pool[0m[2m:[0m pooling idle connection for ("http", localhost:9000)
+<think>
+The user wants me to execute a shell command: [38;2;216;177;114mecho 'test success'[0m. This is a simple command that should output "test success" to the terminal.
+
+I should use the shell tool to execute this command.
+</think>
+
+I'll execute the echo command for you.
+<think>
+The user wants me to execute a shell command: `echo 'test success'`. This is a simple command that should output "test success" to the terminal.
+
+I should use the shell tool to execute this command.
+</think>
+
+I'll execute the echo command for you.
+
+
+⏱️ 2.7s | 💭 2.7s  [2m6%[0m

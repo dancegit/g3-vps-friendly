@@ -1,0 +1,23 @@
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T12:58:07.375817Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: '<think>
+The'
+<think>
+The🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: ' user wants me to execute the command "echo TEST_DEBUG_DEEP". This is a simple shell command that wi'
+ user wants me to execute the command "echo TEST_DEBUG_DEEP". This is a simple shell command that will output the text "TEST_DEBUG_DEEP". I should use the shell tool🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: ' to execute this command.
+</think>
+
+I'll execute the command "echo TEST_DEBUG_DEEP" for you.
+<invoke'
+ to execute this command.
+</think>
+
+I'll execute the command "echo TEST_DEBUG_DEEP" for you.
+<invoke_tool_call>
+<tool name="shell"
+command🔍 STREAMING_PARSER: Checking chunk content for JSON tool calls: '="echo TEST_DEBUG_DEEP"/>
+</tool_call>'
+="echo TEST_DEBUG_DEEP"/>
+</tool_call>
+
+⏱️ 2.6s | 💭 1.8s  [2m19%[0m

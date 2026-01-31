@@ -1,0 +1,36 @@
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T11:54:12.437865Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+[2m2026-01-09T11:54:12.441789Z[0m [34mDEBUG[0m [2mreqwest::connect[0m[2m:[0m starting new connection: http://localhost:9000/
+[2m2026-01-09T11:54:12.442110Z[0m [34mDEBUG[0m [2mhyper::client::connect::dns[0m[2m:[0m resolving host="localhost"
+[2m2026-01-09T11:54:12.442522Z[0m [34mDEBUG[0m [2mhyper::client::connect::http[0m[2m:[0m connecting to [::1]:9000
+[2m2026-01-09T11:54:12.442812Z[0m [34mDEBUG[0m [2mhyper::client::connect::http[0m[2m:[0m connecting to 127.0.0.1:9000
+[2m2026-01-09T11:54:12.442972Z[0m [34mDEBUG[0m [2mhyper::client::connect::http[0m[2m:[0m connected to 127.0.0.1:9000
+[2m2026-01-09T11:54:12.443284Z[0m [34mDEBUG[0m [2mhyper::proto::h1::io[0m[2m:[0m flushed 42030 bytes
+[2m2026-01-09T11:54:12.445804Z[0m [34mDEBUG[0m [2mhyper::proto::h1::io[0m[2m:[0m parsed 6 headers
+[2m2026-01-09T11:54:12.445831Z[0m [34mDEBUG[0m [2mhyper::proto::h1::conn[0m[2m:[0m incoming body is chunked encoding
+[2m2026-01-09T11:54:14.351934Z[0m [34mDEBUG[0m [2mhyper::proto::h1::decode[0m[2m:[0m incoming chunked header: 0x60 (96 bytes)
+<think>
+The[2m2026-01-09T11:54:14.685481Z[0m [34mDEBUG[0m [2mhyper::proto::h1::decode[0m[2m:[0m incoming chunked header: 0xF9 (249 bytes)
+ user wants me to run a simple shell command [38;2;216;177;114mecho DEBUG_TEST_SUCCESS[0m and show them the output. This is a straightforward task that requires using the shell tool.
+[2m2026-01-09T11:54:15.024147Z[0m [34mDEBUG[0m [2mhyper::proto::h1::decode[0m[2m:[0m incoming chunked header: 0xBB (187 bytes)
+
+Looking at the task:
+• It's a single simple command
+• No need for TODO tools since this is just one[2m2026-01-09T11:54:15.331190Z[0m [34mDEBUG[0m [2mhyper::proto::h1::decode[0m[2m:[0m incoming chunked header: 0x101 (257 bytes)
+ command execution
+• I should use the shell tool with the exact command
+
+I'll call the shell tool with the command "echo DEBUG_TEST_SUCCESS".
+</think>
+
+I'll run that[2m2026-01-09T11:54:15.643312Z[0m [34mDEBUG[0m [2mhyper::proto::h1::decode[0m[2m:[0m incoming chunked header: 0xE8 (232 bytes)
+ command for you right away.
+<invoke>
+<invoke name="shell">
+<parameter name="args"> {"command": "echo DEBUG_TEST_SUCCESS"}
+</invoke>
+</[2m2026-01-09T11:54:15.693970Z[0m [34mDEBUG[0m [2mhyper::proto::h1::decode[0m[2m:[0m incoming chunked header: 0x5B (91 bytes)
+invoke>[2m2026-01-09T11:54:15.697342Z[0m [34mDEBUG[0m [2mhyper::proto::h1::decode[0m[2m:[0m incoming chunked header: 0xE (14 bytes)
+
+
+⏱️ 3.3s | 💭 1.9s  [2m19%[0m

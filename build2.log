@@ -1,0 +1,107 @@
+   Compiling g3-providers v0.1.0 (/home/clauderun/g3-vps-friendly/crates/g3-providers)
+warning: unused import: `bytes::Bytes`
+ --> crates/g3-providers/src/anthropic_compatible.rs:7:5
+  |
+7 | use bytes::Bytes;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `error`
+  --> crates/g3-providers/src/anthropic_compatible.rs:14:22
+   |
+14 | use tracing::{debug, error};
+   |                      ^^^^^
+
+warning: unused imports: `decode_utf8_streaming` and `make_tool_chunk`
+  --> crates/g3-providers/src/anthropic_compatible.rs:19:17
+   |
+19 |     streaming::{decode_utf8_streaming, make_final_chunk, make_text_chunk, make_tool_chunk},
+   |                 ^^^^^^^^^^^^^^^^^^^^^                                     ^^^^^^^^^^^^^^^
+
+error[E0599]: no variant or associated item named `Tool` found for enum `MessageRole` in the current scope
+   --> crates/g3-providers/src/anthropic_compatible.rs:97:30
+    |
+ 97 |                 MessageRole::Tool => {
+    |                              ^^^^ variant or associated item not found in `MessageRole`
+    |
+   ::: crates/g3-providers/src/lib.rs:103:1
+    |
+103 | pub enum MessageRole {
+    | -------------------- variant or associated item `Tool` not found for this enum
+
+error[E0277]: the trait bound `anthropic_compatible::AnthropicToolInputSchema: serde::de::DeserializeOwned` is not satisfied
+    --> crates/g3-providers/src/anthropic_compatible.rs:116:81
+     |
+ 116 |                 let input_schema = if let Ok(schema) = serde_json::from_value::<AnthropicToolInputSchema>(tool.input_schema.clone()) {
+     |                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^ unsatisfied trait bound
+     |
+help: the trait `for<'de> Deserialize<'de>` is not implemented for `anthropic_compatible::AnthropicToolInputSchema`
+    --> crates/g3-providers/src/anthropic_compatible.rs:376:1
+     |
+ 376 | struct AnthropicToolInputSchema {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     = help: the following other types implement trait `Deserialize<'de>`:
+               &'a [u8]
+               &'a serde_json::value::RawValue
+               &'a std::path::Path
+               &'a str
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+             and 198 others
+     = note: required for `anthropic_compatible::AnthropicToolInputSchema` to implement `DeserializeOwned`
+note: required by a bound in `from_value`
+    --> /home/clauderun/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.149/src/value/mod.rs:1039:8
+     |
+1037 | pub fn from_value<T>(value: Value) -> Result<T, Error>
+     |        ---------- required by a bound in this function
+1038 | where
+1039 |     T: DeserializeOwned,
+     |        ^^^^^^^^^^^^^^^^ required by this bound in `from_value`
+     = note: the full name for the type has been written to '/home/clauderun/g3-vps-friendly/target/release/deps/g3_providers-bf36eec18e7f3b7f.long-type-10790806703559459528.txt'
+     = note: consider using `--verbose` to print the full type name to the console
+
+error[E0283]: type annotations needed
+   --> crates/g3-providers/src/anthropic_compatible.rs:221:13
+    |
+221 |         let tool_calls = anthropic_response.content.iter()
+    |             ^^^^^^^^^^
+...
+234 |             .collect();
+    |              ------- type must be known at this point
+    |
+    = note: cannot satisfy `_: FromIterator<ToolCall>`
+note: required by a bound in `std::iter::Iterator::collect`
+   --> /rustc/ded5c06cf21d2b93bffd5d884aa6e96934ee4234/library/core/src/iter/traits/iterator.rs:2015:5
+help: consider giving `tool_calls` an explicit type
+    |
+221 |         let tool_calls: Vec<_> = anthropic_response.content.iter()
+    |                       ++++++++
+
+error[E0521]: borrowed data escapes outside of method
+   --> crates/g3-providers/src/anthropic_compatible.rs:272:9
+    |
+249 |       async fn stream(&self, request: CompletionRequest) -> Result<CompletionStream> {
+    |                       -----
+    |                       |
+    |                       `self` is a reference that is only valid in the method body
+    |                       lifetime `'life0` defined here
+...
+272 | /         tokio::spawn(async move {
+273 | |             let mut buffer = String::new();
+274 | |             
+275 | |             futures_util::pin_mut!(stream);
+...   |
+315 | |             let _ = tx.send(Ok(make_final_chunk(Vec::new(), None))).await;
+316 | |         });
+    | |          ^
+    | |          |
+    | |__________`self` escapes the method body here
+    |            argument requires that `'life0` must outlive `'static`
+
+Some errors have detailed explanations: E0277, E0283, E0521, E0599.
+For more information about an error, try `rustc --explain E0277`.
+warning: `g3-providers` (lib) generated 3 warnings
+error: could not compile `g3-providers` (lib) due to 4 previous errors; 3 warnings emitted

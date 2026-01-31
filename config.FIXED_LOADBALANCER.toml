@@ -1,0 +1,43 @@
+# FIXED CONFIGURATION FOR LOAD BALANCER
+# This configuration forces g3 to use the load balancer
+
+[providers]
+# Use the specific provider config we define below
+default_provider = "anthropic.minimax_lb"
+
+[providers.anthropic.minimax_lb]
+api_key = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJHcm91cE5hbWUiOiJQZXIgTWFydGluIFN1bmRiZXJnIiwiVXNlck5hbWUiOiJwZXJzb25hbCBhcHAgZGV2IiwiQWNjb3VudCI6IiIsIlN1YmplY3RJRCI6IjE5ODk3NDI3NzkwNDI4OTQ1NTMiLCJQaG9uZSI6IiIsIkdyb3VwSUQiOiIxOTg5NzQyNzc5MDM0NTEwMDQxIiwiUGFnZU5hbWUiOiIiLCJNYWlsIjoid2ViaW52ZW50aW9uc0Bwcm90b25tYWlsLmNvbSIsIkNyZWF0ZVRpbWUiOiIyMDI1LTExLTE2IDAyOjA0OjI4IiwiVG9rZW5UeXBlIjo0LCJpc3MiOiJtaW5pbWF4In0.J_Aeico2d8AFhDHpLXqkJrStbZsu-dmQvtpBqzbmOmBVqKPttSNRB0Nk4mUlcnJCZL6oIeeVpcynf1Gby_NjpJ2AlbZ-DJ_LhcfFpCkBNzJEpSaYBGex7mhklTUn_XOFKPAh5fkJ9Gu6yTxgbbaOUCeXE9mVBNnTUkntAJK-U3JjLpIeWZC7G3IRBgk4FqTjrM_AIUnSjVFZwYQRlD8LxNYF8AAcaMl7jQ2T5w-e-nBUTSrRPRhDTMygfB0JFJsmzjpApr5912Cp3M7nfU2vtQ08c3N7wxcX5bdX2RhCYAfOkbU6eqxympu5W7XO45YZQ4kJ6EJW2UItFPA"
+model = "claude-3-sonnet-20240229"
+base_url = "http://localhost:9000/v1"
+max_tokens = 64000
+temperature = 0.3
+use_bearer_auth = false  # Use x-api-key header instead of Bearer
+
+[agent]
+name = "loadbalancer-agent"
+provider = "anthropic.minimax_lb"
+fallback_default_max_tokens = 2000
+enable_streaming = false
+timeout_seconds = 60
+max_retry_attempts = 3
+autonomous_max_retry_attempts = 6
+max_context_length = 16000
+allow_multiple_tool_calls = false
+auto_compact = true
+
+[computer_control]
+enabled = false
+require_confirmation = true
+max_actions_per_second = 5
+
+[webdriver]
+enabled = true
+browser = "chrome-headless"
+safari_port = 4444
+chrome_port = 9515
+
+[macax]
+enabled = false
+
+[ui]
+machine_mode = true

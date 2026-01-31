@@ -1,0 +1,16 @@
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T11:52:57.926640Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+<think>
+The user wants me to execute the command 'echo TOOL_EXECUTION_TEST_PASSED'. This is a simple shell command that will output "TOOL_EXECUTION_TEST_PASSED" to the terminal.
+
+I need to use the shell tool to execute this command. The shell tool allows me to run system commands.
+</think>
+
+I'll execute the echo command for you.
+[TOOL_CALL]
+{tool => "shell", args => {
+  --command "echo TOOL_EXECUTION_TEST_PASSED"
+}}
+[/TOOL_CALL]
+
+⏱️ 5.1s | 💭 3.8s  [2m19%[0m

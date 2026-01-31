@@ -358,6 +358,8 @@ pub struct Cli {
     #[arg(long)]
     pub safari: bool,
 
+
+
     /// Enable flock mode - parallel multi-agent development
     #[arg(long, requires = "flock_workspace", requires = "segments")]
     pub project: Option<PathBuf>,
@@ -559,6 +561,8 @@ pub async fn run() -> Result<()> {
         config.webdriver.enabled = true;
         config.webdriver.browser = g3_config::WebDriverBrowser::Safari;
     }
+
+
 
     // Apply no-auto-compact flag override
     if cli.manual_compact {

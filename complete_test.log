@@ -1,0 +1,13 @@
+⚠️ Context length falling back to max_tokens (64000) for provider=anthropic.minimax_local
+[2m2026-01-09T11:53:13.020300Z[0m [33m WARN[0m [2mg3_core[0m[2m:[0m Failed to initialize computer control: Native computer control not supported in headless environment. Use WebDriver for browser automation.
+<think>
+The user is asking me to execute the 'ls -la' command and show the results. This is a simple shell command that I should use the shell tool for. The ls -la command will list all files and directories (including hidden ones that start with .) in long format with detailed information.
+</think>
+
+I'll execute the 'ls -la' command for you.
+<invoke_tool>
+<tool name="shell"
+command="ls -la"/>
+</tool>
+
+⏱️ 2.6s | 💭 1.7s  [2m19%[0m
